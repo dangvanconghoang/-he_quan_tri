@@ -24,16 +24,16 @@ import jdk.nashorn.internal.objects.Global;
 public class DBConnect {
 
     public static Connection connection;
-//    public static final String hostName = "localhost";
-//    public static final String sqlInstanceName = "SQLEXPRESS";
-//    public static final String database = "QuanLyBanVeMayBay";
+    public static final String hostName = "localhost";
+    public static final String sqlInstanceName = "SQLEXPRESS";
+    public static final String database = "QuanLyBanVeMayBay";
 
     public static void dbConnect() {
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            String url = "jdbc:oracle:thin:@localhost:1521:xe";
-            String Username = "BVMB";
-            String Password = "BVMB";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyBanVeMayBay";
+            String Username = "sa";
+            String Password = "YourPassword123";
             connection = DriverManager.getConnection(url, Username, Password);
             System.out.println("\nconnected");
         } catch (Exception exception) {
