@@ -23,15 +23,8 @@ begin
             from ChuyenBay cb,Ve v, HangMayBay hmb
             where cb.MaHMB = hmb.MaHMB AND  cb.MaCB = v.MaCB and cb.DiemKhoiHanh = p_diemkh and  cb.DIEMDEN = p_diemden and cb.NgayKhoiHanh = p_ngaykh
             and v.TinhTrang = 0 and cb.SoGheThuongTrong >= p_sove and 0 = v.LoaiVe;
-     end case;
-
-    exception
-    when CASE_NOT_FOUND then
-        RAISE_APPLICATION_ERROR(-20001,'ERROR CASE STATEMENT',TRUE);
+        end case;
 end;
-/
-
-
 
 --procedure truy van ra list chuyen bay chuyen ve (khu hoi)
 create or replace procedure danhsachchuyenbaykh
@@ -72,12 +65,7 @@ begin
               and cb.SOGHETHUONGTRONG >= p_sove
               and 0 = v.LoaiVe;
         end case;
-    exception
-    when CASE_NOT_FOUND then
-        RAISE_APPLICATION_ERROR(-20001,'ERROR CASE STATEMENT',TRUE);
 end;
-/
-
 
 --package de insert khi mua ve thanh cong
 create or replace package pkg_insert is
@@ -125,15 +113,8 @@ create or replace package body pkg_insert is
             insert into CHITIETCHUYENBAY(MAVE,MACB,TENHK,CMND,SDT,EMAIL,LOAIHK,GIA,DIACHI)
                     values(mave_arr(counter), p_macb,p_tenhk,p_cmnd,p_cmnd,p_email,p_loaihk,p_gia,p_diachi);
         end loop;
-        commit;
-        exception
-            WHEN OTHERS THEN
-            ROLLBACK;
     end insert_ve;
 end pkg_insert;
-/
-
-
 
 -- function tra ve so luong ve con cua mot chuyen bay 
 create or replace function soluongvecon
