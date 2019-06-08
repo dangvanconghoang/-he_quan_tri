@@ -84,7 +84,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cbBoxHanhLy" layoutX="413.0" layoutY="139.0" promptText="kg" />
+      <JFXComboBox fx:id="cbBoxHanhLy" layoutX="413.0" layoutY="139.0" onAction="#handleTongTien" promptText="kg" />
       <Label layoutX="344.0" layoutY="93.0" prefHeight="19.0" prefWidth="73.0" text="Gio bay:">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -130,7 +130,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="cbBoxHanhLy1" layoutX="425.0" layoutY="348.0" promptText="kg" />
+      <JFXComboBox fx:id="cbBoxHanhLy1" layoutX="425.0" layoutY="348.0" onAction="#handleTongTien" promptText="kg" />
       <Label fx:id="HangBay" layoutX="345.0" layoutY="178.0" prefHeight="19.0" prefWidth="110.0" text="JetStar">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -143,7 +143,6 @@
       </Label>
       <Pane layoutX="341.0" layoutY="229.0" prefHeight="29.0" prefWidth="260.0" style="-fx-background-color: green;" />
       <Pane layoutX="189.0" layoutY="482.0" prefHeight="10.0" prefWidth="284.0" style="-fx-background-color: white;" />
-      <Pane layoutX="327.0" layoutY="-37.0" prefHeight="29.0" prefWidth="260.0" style="-fx-background-color: green;" />
       <Label layoutX="445.0" layoutY="232.0" onDragDetected="#handleTongTien" text="Khu hoi" textFill="#fffbfb">
          <font>
             <Font size="18.0" />

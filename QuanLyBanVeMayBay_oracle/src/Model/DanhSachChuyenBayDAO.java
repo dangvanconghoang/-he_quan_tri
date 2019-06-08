@@ -27,7 +27,6 @@ public class DanhSachChuyenBayDAO {
             ds.setGiaVe((rs.getDouble("GiaVe")));
             ds.setMaHMB(rs.getString("TenHMB"));
             ds.setMaCB(rs.getString("MaCB"));
-            ds.setMaVe(rs.getString("MaVe"));
             ds.setTgBay((int) rs.getDouble("ThoiGianBay"));
             ds.setDiemDen(rs.getString("DiemDen"));
             ds.setDiemKhoiHanh(rs.getString("DiemKhoiHanh"));

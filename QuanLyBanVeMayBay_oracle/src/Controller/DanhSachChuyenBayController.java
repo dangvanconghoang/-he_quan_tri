@@ -66,8 +66,8 @@ public class DanhSachChuyenBayController implements Initializable {
     private  TableColumn<DanhSachChuyenBay, String> giatienColumn;
     @FXML
     private  TableColumn<DanhSachChuyenBay, String> hangmaybayColumn;
-    @FXML
-    private  TableColumn<DanhSachChuyenBay, String> maVeColumn;
+//    @FXML
+//    private  TableColumn<DanhSachChuyenBay, String> maVeColumn;
       
     ObservableList<DanhSachChuyenBay> dscb = FXCollections.observableArrayList();
 
@@ -83,7 +83,7 @@ public class DanhSachChuyenBayController implements Initializable {
     private int SoTreEm;
     private String HangMBString;
     private String MaCBString;
-        private String MaVeString;
+//        private String MaVeString;
     private int TGbay;
     private int GiaVe;
     private String GioKH;
@@ -163,20 +163,13 @@ public class DanhSachChuyenBayController implements Initializable {
         giobayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GioKH"));
         thoigianbayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("TgBay"));
         giatienColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GiaVe"));
-        maVeColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("MaVe"));
     }
 
     @FXML
     public void handleNext(ActionEvent event) throws IOException{
-         if ( ctChuyenBay.getMaVe() == null ) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Lỗi rồi ");
-                alert.setContentText("Vui lòng chọn chuyến bay :) ");
-                alert.showAndWait();
-            }
+   
         ctChuyenBay = table.getSelectionModel().getSelectedItem();
-//        ctChuyenBay.setGioKH(GioKH);
-//        ctChuyenBay.setMaHMB(HangMBString);
+
         ctChuyenBay.setDiemDen(DiemDen);
         ctChuyenBay.setDiemKhoiHanh(DiemDi);
         ctChuyenBay.setNgayBayDate(NgayDate);
@@ -184,24 +177,29 @@ public class DanhSachChuyenBayController implements Initializable {
         ctChuyenBay.setSLNgL(SoNL);
         ctChuyenBay.setSLTreEm(SoTreEm);
 
-        this.MaVeString = ctChuyenBay.getMaVe();
         this.GioKH = ctChuyenBay.getGioKH();
         this.HangMBString=ctChuyenBay.getMaHMB();
         this.TGbay=ctChuyenBay.getTgBay();
         this.GiaVe=(int) ctChuyenBay.getGiaVe();
         this.MaCBString=ctChuyenBay.getMaCB();
+        if ( ctChuyenBay.getGioKH() == null ) {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Lỗi rồi ");
+          alert.setContentText("Vui lòng chọn chuyến bay :) ");
+          alert.showAndWait();
+        }
         if (this.NgayVe != null) {
             AnchorPane paneDanhSachChuyenBay1 = new AnchorPane();
 
              FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneDanhSachChuyenBay1, "/View/DanhSachChuyenBay_1.fxml");
-             fXMLLoader.<DanhSachChuyenBayController1>getController().ChuyenDuLieuKhuHoi(MaVeString,MaCBString,DiemDi, DiemDen, NgayDate, NgayVe, HangMBString,GioKH,TGbay, LoaiVe, SoNL, SoTreEm, GiaVe);
+             fXMLLoader.<DanhSachChuyenBayController1>getController().ChuyenDuLieuKhuHoi(MaCBString,DiemDi, DiemDen, NgayDate, NgayVe, HangMBString,GioKH,TGbay, LoaiVe, SoNL, SoTreEm, GiaVe);
 
             GeneralFuntion.FitChildContent(paneDanhSachChuyenBay1);
             
         } else {
             AnchorPane paneThanhToan = new AnchorPane();
             FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneThanhToan, "/View/ThanhToan.fxml");
-            fXMLLoader.<ThanhToanController>getController().ChuyenDuLieu(MaVeString,MaCBString,DiemDi, DiemDen, NgayDate,TGbay,HangMBString, LoaiVe, ctChuyenBay.getGioKH(), SoNL, SoTreEm,GiaVe);
+            fXMLLoader.<ThanhToanController>getController().ChuyenDuLieu(MaCBString,DiemDi, DiemDen, NgayDate,TGbay,HangMBString, LoaiVe, ctChuyenBay.getGioKH(), SoNL, SoTreEm,GiaVe);
             GeneralFuntion.FitChildContent(paneThanhToan);
         }
    

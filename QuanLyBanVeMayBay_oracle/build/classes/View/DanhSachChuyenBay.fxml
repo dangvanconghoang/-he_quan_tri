@@ -23,11 +23,10 @@
             </Pane>
             <TableView fx:id="table" layoutY="118.0" prefHeight="177.0" prefWidth="600.0">
               <columns>
-                  <TableColumn fx:id="maVeColumn" prefWidth="54.0" text="Ma Ve" />
                   <TableColumn fx:id="hangmaybayColumn" minWidth="0.0" prefWidth="159.0" text="Hang May Bay" />
                 <TableColumn fx:id="thoigianbayColumn" maxWidth="128.0" minWidth="0.0" prefWidth="126.0" text="Thoi gian bay" />
                   <TableColumn fx:id="giobayColumn" prefWidth="159.0" text="Gio khoi hanh" />
-                  <TableColumn fx:id="giatienColumn" minWidth="0.0" prefWidth="101.0" text="Gia" />
+                  <TableColumn fx:id="giatienColumn" minWidth="0.0" prefWidth="155.0" text="Gia" />
               </columns>
             </TableView>
             <Pane layoutY="59.0" prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: white;">
