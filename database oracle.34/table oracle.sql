@@ -73,25 +73,52 @@ create table CHUYENBAY
 
 
 -- auto-generated definition
-create table CHITIETCHUYENBAY
+-- auto-generated definition
+create table CHITIETVE
 (
-    MAVE   VARCHAR2(10) not null
+    MAVE      VARCHAR2(10) not null
         constraint CHITIETCHUYENBAY_PK
             primary key
         constraint CT_VE_FK
             references VE
                 on delete set null,
-    MACB   VARCHAR2(10)
+    MACB      VARCHAR2(10)
         constraint CT_VE_FK_CHUYENBAY_MACB_FK
             references CHUYENBAY
                 on delete set null,
-    TENHK  NVARCHAR2(50),
-    CMND   VARCHAR2(12),
-    SDT    VARCHAR2(11),
-    EMAIL  NVARCHAR2(50),
-    LOAIHK NUMBER,
-    GIA    NUMBER,
-    DIACHI NVARCHAR2(100)
+    TENHK     NVARCHAR2(50),
+    CMND      VARCHAR2(12),
+    SDT       VARCHAR2(11),
+    EMAIL     NVARCHAR2(50),
+    LOAIHK    NUMBER,
+    GIA       NUMBER,
+    DIACHI    NVARCHAR2(100),
+    KHUYENMAI NUMBER
+        constraint CHITIETVE_KHUYENMAI_MAKM_FK
+            references KHUYENMAI
+                on delete set null
 )
+/
+
+-- auto-generated definition
+create table KHUYENMAI
+(
+    MAKM            NUMBER default "BVMB"."SEQ_TMP_IDENTITY"."NEXTVAL" not null
+        constraint KHUYENMAI_PK
+            primary key,
+    TENKM           NVARCHAR2(20),
+    MOTA            NVARCHAR2(50),
+    GIAMGIA         BINARY_DOUBLE,
+    SOLUONGDISCOUNT NUMBER,
+    HANSD           DATE,
+    TINHTRANG       NUMBER,
+    NGAYPHATHANH    DATE
+)
+/
+
+comment on column KHUYENMAI.MAKM is 'GENERATED ALWAYS AS IDENTITY'
+/
+
+
 
 
