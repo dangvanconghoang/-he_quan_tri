@@ -5,8 +5,9 @@
  */
 package Controller;
 
+import java.sql.Timestamp;
 import Model.ThanhToan;
-import Model.ThanhToanDAO;
+import DAL.ThanhToanDAO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -62,7 +63,8 @@ public class ThanhToanController implements Initializable {
     private Label ThoiDiemXuatPhat1;
     @FXML
     private Label HangBay;
-
+    @FXML
+    private Label HangBay1;
     @FXML
     private Label LoaiGhe;
     @FXML
@@ -109,8 +111,8 @@ public class ThanhToanController implements Initializable {
      private int GiaVeInt1;
     private String MaCBString;
     private String MaCBString1;
-//    private String MaVeString;
-//    private String MaVeString1;
+    private String MaVeString;
+    private String MaVeString1;
     private String KhachhangString;
     private int HanhLy;
     private int HanhLy1;
@@ -133,8 +135,8 @@ public class ThanhToanController implements Initializable {
     public void handleThanhToan(ActionEvent event) throws SQLException{
 //         if ( this.HoTenLienHe.getText() == null ||  ) {
 //                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Lỗi rồi ");
-//                alert.setContentText("Vui lòng chọn chuyến bay :) ");
+//                alert.setTitle("Lá»—i rá»“i ");
+//                alert.setContentText("Vui lÃ²ng chá»�n chuyáº¿n bay :) ");
 //                alert.showAndWait();
 //            }
         int hanhLy = this.cbBoxHanhLy.getValue();
@@ -154,7 +156,7 @@ public class ThanhToanController implements Initializable {
         tt.setKhachhangString(KhachhangString);
         tt.setLoaiVeInt(LoaiVeInt);
         tt.setMaCBString(MaCBString);
-//        tt.setMaVeString(MaVeString);
+        tt.setMaVeString(MaVeString);
         tt.setSove(SoLuongVeInt);
 //        tt.setCmnd(MaCBString);
         //tt.setEmail(1);
@@ -164,7 +166,7 @@ public class ThanhToanController implements Initializable {
             tt1.setKhachhangString(KhachhangString);
             tt1.setLoaiVeInt(LoaiVeInt);
             tt1.setMaCBString(MaCBString1);
-//            tt1.setMaVeString(MaVeString1);
+            tt1.setMaVeString(MaVeString1);
             tt1.setSove(SoLuongVeInt1);
         }
 //        tt.setCmnd(MaCBString);
@@ -177,7 +179,7 @@ public class ThanhToanController implements Initializable {
         
         
         
-//        lấy mã vé ra rồi bỏ vô mảng lặp nhét vô next 
+//        láº¥y mÃ£ vÃ© ra rá»“i bá»� vÃ´ máº£ng láº·p nhÃ©t vÃ´ next 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         alert.setContentText("ten khach hang: "+KhachhangString+"\n"+"tong tien phai thanh toan: "+tong);
@@ -231,18 +233,17 @@ public class ThanhToanController implements Initializable {
     }
  
     
-    public void ChuyenDuLieu( String MaCBString,String DiemDi,String DiemDen,LocalDate NgayDate, int TGBay,String HangMB,int LoaiVe,String GioKH,int SoNL,int SoTreEm, int GiaVe){
+    public void ChuyenDuLieu(String MaVeString, String MaCBString,String DiemDi,String DiemDen,LocalDate NgayDate, int TGBay,String HangMB,int LoaiVe,Timestamp ThoiGianKhoiHanh,int SoNL,int SoTreEm, int GiaVe){
         this.DiemDi.setText(DiemDi);
         this.DiemDen.setText(DiemDen);
         this.ThoiDiemXuatPhat.setText(NgayDate.toString());
-        
-     
-        this.GioBay.setText(GioKH);
+        this.HangBay.setText(HangMB);
+//        this.GioBay.setText(GioKH);
         this.ThoiGianBay.setText(Integer.toString(TGBay)+"h");
         if (LoaiVe==1) {
             this.LoaiGhe.setText("Thuong Gia");
         } else {this.LoaiGhe.setText("Pho Thong");}
-           this.HangBay.setText(HangMB);
+        
         this.SLNgL = SoNL;
         this.SLTreEm=SoTreEm;
          this.SoLuongVeInt=(SoNL+SoTreEm);
@@ -252,26 +253,27 @@ public class ThanhToanController implements Initializable {
         NgayDiDate = NgayDate;
         this.HangMBString = HangMB;
         LoaiVeInt = LoaiVe;
-        GioKhoiHanhString = GioKH;
+//        GioKhoiHanhString = ThoiGianKhoiHanh;
         GiaVeInt = GiaVe;
         this.MaCBString=MaCBString;
+        this.MaVeString = MaVeString;
         this.HanhLy = this.cbBoxHanhLy.getValue();
         
         this.tongtien = (thanhtien(LoaiVe, SoNL, SoTreEm, GiaVe,HanhLy));
         this.TongTien.setText(Double.toString(tongtien));
     }
-    public void ChuyenDuLieuKhuHoi(String MaCBString,String MaCBString1,String DiemDi,String DiemDen,String DiemDi1,String DiemDen1,LocalDate NgayDi, LocalDate NgayVe,String GioKH,String GioKH1, int TGBay,int TGBay1,String HangMB,int LoaiVe,int SoNL,int SoTreEm, int GiaVe,int GiaVe1){
+    public void ChuyenDuLieuKhuHoi(String MaVeString, String MaVeString1, String MaCBString,String MaCBString1,String DiemDi,String DiemDen,String DiemDi1,String DiemDen1,LocalDate NgayDi, LocalDate NgayVe, Timestamp ThoiGianKhoiHanh, Timestamp ThoiGianKhoiHanh1, int TGBay,int TGBay1,String HangMB,int LoaiVe,int SoNL,int SoTreEm, int GiaVe,int GiaVe1){
         this.DiemDi.setText(DiemDi);
         this.DiemDen.setText(DiemDen);
-       
+        this.HangBay.setText(HangMB);
         this.ThoiGianBay.setText(Integer.toString(TGBay)+"h");
         this.ThoiDiemXuatPhat.setText(NgayDi.toString());
-        this.GioBay.setText(GioKH);
+//        this.GioBay.setText(ThoiGianKhoiHanh);
         
         this.ThoiGianBay1.setText(Integer.toString(TGBay1)+"h");
         this.ThoiDiemXuatPhat1.setText(NgayVe.toString());
-        this.GioBay1.setText(GioKH1);
-         this.HangBay.setText(HangMB);
+//        this.GioBay1.setText(ThoiGianKhoiHanh1);
+        
         if (LoaiVe==1) {
             this.LoaiGhe.setText("Thuong Gia");
         } else {this.LoaiGhe.setText("Pho Thong");}
@@ -291,13 +293,13 @@ public class ThanhToanController implements Initializable {
         this.NgayVeDate = NgayVe;
         this.HangMBString = HangMB;
         this.LoaiVeInt = LoaiVe;
-        this.GioKhoiHanhString = GioKH;
+//        this.GioKhoiHanhString = GioKH;
         this.GiaVeInt = GiaVe;
         this.GiaVeInt1 = GiaVe1;
         this.MaCBString=MaCBString;
         this.MaCBString1=MaCBString1;
-//        this.MaVeString = MaVeString;
-//        this.MaVeString1 = MaVeString1;
+        this.MaVeString = MaVeString;
+        this.MaVeString1 = MaVeString1;
 
         this.TongTien.setText(Double.toString(tongtien));
 

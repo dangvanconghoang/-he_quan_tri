@@ -5,8 +5,9 @@
  */
 package Controller;
 
+import java.sql.Timestamp;
 import Model.DanhSachChuyenBay;
-import Model.DanhSachChuyenBayDAO;
+import DAL.DanhSachChuyenBayDAO;
 import Model.LichSuBanVe;
 import com.jfoenix.controls.JFXButton;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
@@ -61,10 +62,12 @@ public class DanhSachChuyenBayController1 implements Initializable {
     @FXML
     private  TableColumn<DanhSachChuyenBay, String> thoigianbayColumn;
     @FXML
-    private  TableColumn<DanhSachChuyenBay, String> giatienColumn;
+    private  TableColumn<DanhSachChuyenBay, Double> giatienColumn;
     @FXML
     private  TableColumn<DanhSachChuyenBay, String> hangmaybayColumn;
-
+    @FXML
+    private  TableColumn<DanhSachChuyenBay, String> maCBColumn;
+   
     ObservableList<DanhSachChuyenBay> dscb = FXCollections.observableArrayList();
 
     private int sv;
@@ -76,7 +79,7 @@ public class DanhSachChuyenBayController1 implements Initializable {
     private String DiemDi ;
     private String DiemDen;
     private int TGbay;
-    private String GioKH;
+    private Timestamp ThoiGianKhoiHanh;
     private String HangMBString;
     private int LoaiVe;
     private int GiaVe;
@@ -84,20 +87,38 @@ public class DanhSachChuyenBayController1 implements Initializable {
     private String DiemDi1 ;
     private String DiemDen1;
     private int TGbay1;
-    private String GioKH1;
-   private int GiaVe1;  
+    private Timestamp ThoiGianKhoiHanh1;
+    private int GiaVe1;  
     
     private DanhSachChuyenBayDAO dscbdao;
-
+//    private String DiemDi ;
+//    private String DiemDen;
+//    private LocalDate NgayDate;
+//    private LocalDate NgayVe;
+//    private int LoaiVe;
+//    private int sv;
+//    private int SoNL;
+//    private int SoTreEm;
+//    private String HangMBString;
     private String MaCBString; 
     private String MaCBString1;
-
+    private String MaVeString; 
+    private String MaVeString1;
+//    private int TGbay;
+//    private int GiaVe;
+//    private String GioKH;
+//    // khu hoi
+//    private String DiemDi1 ;
+//    private String DiemDen1;
+//    private int TGbay1;
+//    private int GiaVe1;
     
     DanhSachChuyenBay ctChuyenBay = new DanhSachChuyenBay();
 
     
-    public void ChuyenDuLieuKhuHoi( String MaCB,String DiemDi,String DiemDen, LocalDate NgayDi,LocalDate NgayVe, String HangMB, String GioKH,int TGBay, int LoaiVe, int SoNL, int SoTreEm, int GiaVe ){
+    public void ChuyenDuLieuKhuHoi(String MaVe, String MaCB,String DiemDi,String DiemDen, LocalDate NgayDi,LocalDate NgayVe, String HangMB, Timestamp ThoiGianKhoiHanh,int TGBay, int LoaiVe, int SoNL, int SoTreEm, int GiaVe ){
         this.MaCBString = MaCB;
+        this.MaVeString = MaVe;
         this.DiemDi = DiemDi;
         this.DiemDen=DiemDen;
         this.NgayDi=NgayDi;
@@ -108,8 +129,9 @@ public class DanhSachChuyenBayController1 implements Initializable {
         this.SoNL=SoNL;
         this.SoTreEm=SoTreEm;
         this.HangMBString = HangMB;
-        this.GioKH = GioKH;
+        this.ThoiGianKhoiHanh = ThoiGianKhoiHanh;
         this.TGbay = TGBay;
+//        System.out.println("Controller.DanhSachChuyenBayController1.ChuyenDuLieuKhuHoi()"+MaVeString);
         this.NgayDiLabel.setText(NgayDi.toString());
         this.NgayVeLabel.setText(NgayVe.toString());
         this.DiaDiemLabel.setText(DiemDi+ " - " +DiemDen);
@@ -140,41 +162,52 @@ public class DanhSachChuyenBayController1 implements Initializable {
 
     }    
     
-    // Load dữ liệu lên table
+    // Load dá»¯ liá»‡u lÃªn table
     void LoadData()throws SQLException{
         dscbdao = new DanhSachChuyenBayDAO();
         dscb=dscbdao.getDanhSachChuyenBays1(this.DiemDi1, this.DiemDen1,this.HangMBString, this.sv, this.LoaiVe, this.NgayVe);
          setCellValueFactory();
         table.setItems(dscb);
     }
-      //Gán giá trị vào cho cột
+      //GÃ¡n giÃ¡ trá»‹ vÃ o cho cá»™t
     void setCellValueFactory(){
         hangmaybayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("MaHMB"));
         giobayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GioKH"));
-        thoigianbayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("TgBay"));
-        giatienColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("GiaVe"));
+        thoigianbayColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("ThoiGianBay"));
+        giatienColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, Double>("GiaVe"));
+        maCBColumn.setCellValueFactory(new PropertyValueFactory<DanhSachChuyenBay, String>("MaCB"));
     }
     
     
     @FXML
     public void handleNext(ActionEvent event) throws IOException{
-   
+//         if ( ctChuyenBay.getMaVe() == null ) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Lá»—i rá»“i ");
+//                alert.setContentText("Vui lÃ²ng chá»�n chuyáº¿n bay :) ");
+//                alert.showAndWait();
+//            }
         ctChuyenBay = table.getSelectionModel().getSelectedItem();
-
+////        ctChuyenBay.setMaHMB(HangMBString);
+//        ctChuyenBay.setDiemDen(DiemDen);
+//        ctChuyenBay.setDiemKhoiHanh(DiemDi);
+//        ctChuyenBay.setNgayBayDate(NgayDate);
+//        ctChuyenBay.setLoaiVe(LoaiVe);
+//        ctChuyenBay.setSLNgL(SoNL);
+//        ctChuyenBay.setSLTreEm(SoTreEm);
+//        
+//        this.HangMBString=ctChuyenBay.getMaHMB();
         this.TGbay1=ctChuyenBay.getTgBay();
-        this.GioKH1 = ctChuyenBay.getGioKH();
+        this.ThoiGianKhoiHanh1 = ctChuyenBay.getThoiGianKhoiHanh();
         this.GiaVe1=(int) ctChuyenBay.getGiaVe();
         this.MaCBString1=ctChuyenBay.getMaCB();
+//        this.MaVeString1=ctChuyenBay.getMaVe();
 
-        if ( ctChuyenBay.getGioKH() == null ) {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Lỗi rồi ");
-           alert.setContentText("Vui lòng chọn chuyến bay :) ");
-           alert.showAndWait();
-       }
+       
         AnchorPane paneThanhToan = new AnchorPane();
         FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneThanhToan, "/View/ThanhToan.fxml");
-        fXMLLoader.<ThanhToanController>getController().ChuyenDuLieuKhuHoi(MaCBString,MaCBString1,DiemDi, DiemDen,DiemDi1, DiemDen1, NgayDi, NgayVe,GioKH, GioKH1,TGbay,TGbay1,HangMBString, LoaiVe, SoNL, SoTreEm,GiaVe,GiaVe1);
+        fXMLLoader.<ThanhToanController>getController().ChuyenDuLieuKhuHoi(MaVeString,MaVeString1,MaCBString,MaCBString1,DiemDi, DiemDen,DiemDi1, DiemDen1, NgayDi, NgayVe, ThoiGianKhoiHanh, ThoiGianKhoiHanh1,
+        									TGbay, TGbay1, HangMBString, LoaiVe, SoNL, SoTreEm, GiaVe,GiaVe1);
         GeneralFuntion.FitChildContent(paneThanhToan);
 // 
 //   

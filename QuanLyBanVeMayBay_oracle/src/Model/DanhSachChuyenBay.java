@@ -5,8 +5,8 @@
  */
 package Model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
-
 /**
  *
  * @author hoangdang
@@ -14,11 +14,9 @@ import java.time.LocalDate;
 public class DanhSachChuyenBay {
     private String MaHMB;
     private String MaCB;
-    private String MaVe;
     private String DiemKhoiHanh;
     private String DiemDen;
-    private String GioKH;
-    private String GioKH1;
+    private Timestamp ThoiGianKhoiHanh;
     private int TgBay;
     private int TgBay1;
 
@@ -32,14 +30,12 @@ public class DanhSachChuyenBay {
     public DanhSachChuyenBay() {
     }
 
-    public DanhSachChuyenBay(String MaHMB, String MaCB, String MaVe, String DiemKhoiHanh, String DiemDen, String GioKH, String GioKH1, int TgBay, int TgBay1, double GiaVe, LocalDate NgayBayDate, LocalDate NgayBayDate1, int SLNgL, int SLTreEm, int LoaiVe) {
+    public DanhSachChuyenBay(String MaHMB, String MaCB, String DiemKhoiHanh, String DiemDen, Timestamp ThoiGianKhoiHanh, int TgBay, int TgBay1, double GiaVe, LocalDate NgayBayDate, LocalDate NgayBayDate1, int SLNgL, int SLTreEm, int LoaiVe) {
         this.MaHMB = MaHMB;
         this.MaCB = MaCB;
-        this.MaVe = MaVe;
         this.DiemKhoiHanh = DiemKhoiHanh;
         this.DiemDen = DiemDen;
-        this.GioKH = GioKH;
-        this.GioKH1 = GioKH1;
+        this.ThoiGianKhoiHanh = ThoiGianKhoiHanh;
         this.TgBay = TgBay;
         this.TgBay1 = TgBay1;
         this.GiaVe = GiaVe;
@@ -66,14 +62,6 @@ public class DanhSachChuyenBay {
         this.MaCB = MaCB;
     }
 
-    public String getMaVe() {
-        return MaVe;
-    }
-
-    public void setMaVe(String MaVe) {
-        this.MaVe = MaVe;
-    }
-
     public String getDiemKhoiHanh() {
         return DiemKhoiHanh;
     }
@@ -90,20 +78,12 @@ public class DanhSachChuyenBay {
         this.DiemDen = DiemDen;
     }
 
-    public String getGioKH() {
-        return GioKH;
+    public Timestamp getThoiGianKhoiHanh() {
+        return this.ThoiGianKhoiHanh;
     }
 
-    public void setGioKH(String GioKH) {
-        this.GioKH = GioKH;
-    }
-
-    public String getGioKH1() {
-        return GioKH1;
-    }
-
-    public void setGioKH1(String GioKH1) {
-        this.GioKH1 = GioKH1;
+    public void setThoiGianKhoiHanh(Timestamp timestamp) {
+        this.ThoiGianKhoiHanh = timestamp;
     }
 
     public int getTgBay() {
