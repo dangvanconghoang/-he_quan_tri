@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.LichSuBanVeDAO;
+import DAL.LichSuBanVeDAO;
 import Model.LichSuBanVe;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
