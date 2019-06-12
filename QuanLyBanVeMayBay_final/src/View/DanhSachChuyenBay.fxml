@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="1000.0" style="-fx-background-color: white;" styleClass="anotherbackground" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DanhSachChuyenBayController">
+   <children>
+      <AnchorPane layoutX="200.0" layoutY="134.0" prefHeight="377.0" prefWidth="600.0" style="-fx-background-color: white;">
+         <children>
+            <TableView fx:id="table" layoutY="56.0" prefHeight="239.0" prefWidth="600.0">
+              <columns>
+                  <TableColumn fx:id="hangmaybayColumn" minWidth="0.0" prefWidth="159.0" text="Hãng máy bay" />
+                <TableColumn fx:id="thoigianbayColumn" maxWidth="128.0" minWidth="0.0" prefWidth="126.0" text="Thời gian bay" />
+                  <TableColumn fx:id="giobayColumn" prefWidth="159.0" text="Giờ khởi hành" />
+                  <TableColumn fx:id="giatienColumn" minWidth="0.0" prefWidth="155.0" text="Giá vé" />
+              </columns>
+            </TableView>
+            <Pane prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: white;">
+               <children>
+                  <Label fx:id="NgayDi" layoutX="85.0" layoutY="8.0" text="Thu 6, 10/5/2019" />
+                  <Label fx:id="DiaDiem" layoutX="28.0" layoutY="30.0" text="HCM(SGN) - HN (NAN)" />
+                  <Label fx:id="NgayDiLabel" layoutX="28.0" layoutY="8.0" text="Ngày đi" />
+                  <Label layoutX="240.0" layoutY="8.0" text="Ngày về" />
+                  <Label fx:id="NgayVeLabel" layoutX="300.0" layoutY="8.0" text="khong" />
+               </children>
+            </Pane>
+            <JFXButton fx:id="btnBack" layoutX="156.0" layoutY="318.0" onAction="#handleBack" prefHeight="39.0" prefWidth="105.0" style="-fx-background-color: #095283 #095283;" styleClass="newbutton" text="Quay lại" textFill="#fcf6f6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnNext" layoutX="336.0" layoutY="318.0" onAction="#handleNext" prefHeight="39.0" prefWidth="105.0" style="-fx-background-color: #095283 #095283;" styleClass="newbutton" text="Tiếp tục" textFill="#fcf6f6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <Label fx:id="LuotDi" layoutX="394.0" layoutY="64.0" text="Chọn lượt đi" textFill="#095283">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

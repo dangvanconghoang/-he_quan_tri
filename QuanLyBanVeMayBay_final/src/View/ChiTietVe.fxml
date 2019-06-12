@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="850.0" prefWidth="1000.0" styleClass="anotherbackground" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ChiTietVeController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="143.0" prefWidth="1000.0" text="Chi tiết vé" textFill="#095283">
+         <font>
+            <Font name="System Bold" size="37.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="151.0" layoutY="147.0" prefHeight="365.0" prefWidth="349.0" style="-fx-background-color: #FEF4E8;">
+         <children>
+            <Label layoutX="15.0" layoutY="14.0" text="Thông tin vé:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="32.0" layoutY="38.0" text="Mã vé:" />
+            <Label layoutX="15.0" layoutY="61.0" text="Mã chuyến bay:" />
+            <Label layoutX="10.0" layoutY="88.0" text="Hãng máy bay:" />
+            <Label layoutX="6.0" layoutY="118.0" text="Điểm khởi hành:" />
+            <Label layoutX="22.0" layoutY="145.0" text="Điểm đến:" />
+            <Label layoutX="22.0" layoutY="172.0" stylesheets="@application.css" text="Sân bay đi:" />
+            <Label layoutX="15.0" layoutY="199.0" text="Sân bay đến:" />
+            <Label layoutX="7.0" layoutY="227.0" text="Ngày khởi hành:" />
+            <Label layoutX="12.0" layoutY="253.0" text="Thời gian bay:" />
+            <Label layoutX="11.0" layoutY="278.0" text="Giờ khởi hành:" />
+            <JFXTextField fx:id="tfMaVe" layoutX="118.0" layoutY="34.0" />
+            <JFXTextField fx:id="tfMaCB" layoutX="118.0" layoutY="57.0" />
+            <JFXTextField fx:id="tfHangMB" layoutX="118.0" layoutY="84.0" />
+            <JFXTextField fx:id="tfTGBay" layoutX="118.0" layoutY="249.0" prefHeight="25.0" prefWidth="99.0" />
+            <JFXTimePicker fx:id="tpGioKH" layoutX="118.0" layoutY="274.0" />
+            <JFXDatePicker fx:id="dpNgayKH" layoutX="118.0" layoutY="223.0" />
+            <Label layoutX="228.0" layoutY="258.0" text="tiếng" />
+            <JFXTextField fx:id="tfDiemKH" layoutX="118.0" layoutY="114.0" />
+            <JFXTextField fx:id="tfDiemDen" layoutX="118.0" layoutY="141.0" />
+            <JFXTextField fx:id="tfSanBayDi" layoutX="118.0" layoutY="168.0" />
+            <JFXTextField fx:id="tfSanBayDen" layoutX="118.0" layoutY="195.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="500.0" layoutY="147.0" prefHeight="365.0" prefWidth="343.0" style="-fx-background-color: #FEF4E8;">
+         <children>
+            <Label layoutX="22.0" layoutY="14.0" text="Thông tin hành khách:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="42.0" text="Tên hành khách:" />
+            <Label layoutX="22.0" layoutY="69.0" text="CMND:" />
+            <Label layoutX="22.0" layoutY="95.0" text="Số điện thoại:" />
+            <Label layoutX="22.0" layoutY="121.0" text="Email:" />
+            <Label layoutX="22.0" layoutY="145.0" text="Loại HK:" />
+            <Label layoutX="26.0" layoutY="199.0" text="Giá vé:" />
+            <JFXTextField fx:id="tfTenHK" layoutX="154.0" layoutY="42.0" />
+            <JFXTextField fx:id="tfCMND" layoutX="154.0" layoutY="65.0" />
+            <JFXTextField fx:id="tfSDT" layoutX="154.0" layoutY="91.0" />
+            <JFXTextField fx:id="tfEmail" layoutX="154.0" layoutY="117.0" />
+            <JFXTextField fx:id="tfLoaiHK" layoutX="154.0" layoutY="141.0" />
+            <JFXTextField fx:id="tfGiaVe" layoutX="154.0" layoutY="195.0" prefHeight="25.0" prefWidth="99.0" />
+            <Label layoutX="258.0" layoutY="199.0" text="đồng" />
+            <JFXButton fx:id="btnHuyVe" layoutX="132.0" layoutY="296.0" onAction="#btnHuyVeClick" prefHeight="42.0" prefWidth="79.0" styleClass="newbutton" stylesheets="@application.css" text="Hủy Vé" textFill="WHITE" />
+            <JFXButton fx:id="btnSua" layoutX="240.0" layoutY="296.0" onAction="#btnSuaClick" prefHeight="42.0" prefWidth="79.0" style="-fx-background-color: #095283;" styleClass="newbutton" stylesheets="@application.css" text="Sửa" />
+            <JFXButton fx:id="btnLuu" layoutX="240.0" layoutY="296.0" onAction="#btnLuuClick" prefHeight="42.0" prefWidth="79.0" styleClass="newbutton" stylesheets="@application.css" text="Lưu" />
+            <Label layoutX="24.0" layoutY="171.0" text="Loại vé:" />
+            <JFXTextField fx:id="tfLoaiVe" layoutX="154.0" layoutY="167.0" />
+            <Label layoutX="24.0" layoutY="227.0" text="Hành lý" />
+            <Label layoutX="265.0" layoutY="227.0" text="kg" />
+            <JFXTextField fx:id="tfHanhLy" layoutX="154.0" layoutY="223.0" prefHeight="25.0" prefWidth="99.0" />
+            <Label layoutX="25.0" layoutY="255.0" text="Số ghế:" />
+            <JFXTextField fx:id="tfSoGhe" layoutX="154.0" layoutY="251.0" />
+            <JFXButton fx:id="btnInVe" layoutX="19.0" layoutY="297.0" onAction="#btnInVeClick" prefHeight="42.0" prefWidth="79.0" styleClass="newbutton" stylesheets="@application.css" text="In vé" />
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnQuayLai" layoutX="151.0" layoutY="101.0" onAction="#btnQuayLaiClick" prefHeight="42.0" prefWidth="155.0" styleClass="newbutton" stylesheets="@application.css" text="&lt;- Quay lại trang trước" />
+   </children>
+</AnchorPane>
