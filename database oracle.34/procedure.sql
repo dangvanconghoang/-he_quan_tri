@@ -506,6 +506,10 @@ create or replace package body pkg_insert is
 --                 DBMS_OUTPUT.put_line(v_thanhtien);
                 insert into CHITIETVE(MAVE, MACB, CMND, GIA, KHUYENMAI)
                 values (mave_arr(counter), p_macb, p_makh, v_thanhtien, p_km);
+
+                update ve
+                set tinhtrang = 1
+                where mave = mave_arr(counter);
             end loop;
         commit;
     exception
