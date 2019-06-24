@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.LichSuBanVeDAO;
+import DAL.LichSuBanVeDAO;
 import Model.LichSuBanVe;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -71,12 +71,12 @@ public class LichSuBanVeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        try{
-        LoadData();
+        try {
+            LoadData();
         }catch (SQLException e){
             System.out.println("Can't load data in initialize");
         }
+        
         addButtonToTable();
     }    
     // Load dữ liệu lên table
@@ -176,7 +176,7 @@ public class LichSuBanVeController implements Initializable {
     //hàm search
     private void btnTimClick(ActionEvent event) throws SQLException {
         ls = new LichSuBanVeDAO();
-        listBanVe=ls.getlistTim(tfTim.getText());
+        listBanVe = ls.getlistTim(tfTim.getText());
         setCellValueFactory();
         tbBanVe.setItems(listBanVe);
     }
@@ -187,7 +187,7 @@ public class LichSuBanVeController implements Initializable {
     //Lưu dữ liệu vào biến sau khi click vào table
     @FXML
     private void tbBanVeClick(MouseEvent e) {
-        if(MouseButton.PRIMARY == e.getButton() && e.getClickCount() == 1){
+        if(MouseButton.PRIMARY == e.getButton() && e.getClickCount() == 1) {
         LichSuBanVe ls1 = tbBanVe.getSelectionModel().getSelectedItem();
         v_MaVe=ls1.getMaVe();
         v_MaCB=ls1.getMaCB();
@@ -197,10 +197,10 @@ public class LichSuBanVeController implements Initializable {
     //Hàm chuyển form
     private void ChuyenForm()throws SQLException{
         AnchorPane paneChiTietChuyenBay = new AnchorPane();
-                            FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneChiTietChuyenBay, "/View/ChiTietVe.fxml");
-                            fXMLLoader.<ChiTietVeController>getController().ChuyenDuLieu(v_MaCB, v_MaVe);
-                            paneChiTietChuyenBay.getChildren().add(paneChiTietChuyenBay); 
-                            GeneralFuntion.FitChildContent(paneChiTietChuyenBay);
+        FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneChiTietChuyenBay, "/View/ChiTietVe.fxml");
+        fXMLLoader.<ChiTietVeController>getController().ChuyenDuLieu(v_MaCB, v_MaVe);
+        paneChiTietChuyenBay.getChildren().add(paneChiTietChuyenBay); 
+        GeneralFuntion.FitChildContent(paneChiTietChuyenBay);
     }
 
     @FXML

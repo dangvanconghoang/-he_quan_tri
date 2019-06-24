@@ -19,14 +19,14 @@ public class ThanhToan {
     private String MaCBString;
     private String MaVeString;
     private String KhachhangString;
-    private String cmnd;
+    private String MaKhachHang;
     private String sdt;
     private String email;
     private int HanhLy;
     private double giaNL;
     private double giaTE;
 
-    public ThanhToan(int LoaiVeInt, double tienve, int sove, int soveTE, String MaCBString, String MaVeString, String KhachhangString, String cmnd, String sdt, String email, int HanhLy, double giaNL,double giaTE) {
+    public ThanhToan(int LoaiVeInt, double tienve, int sove, int soveTE, String MaCBString, String MaVeString, String KhachhangString, String MaKhachHang, String sdt, String email, int HanhLy, double giaNL,double giaTE) {
         this.LoaiVeInt = LoaiVeInt;
         this.tienve = tienve;
         this.sove = sove;
@@ -34,7 +34,7 @@ public class ThanhToan {
         this.MaCBString = MaCBString;
         this.MaVeString = MaVeString;
         this.KhachhangString = KhachhangString;
-        this.cmnd = cmnd;
+        this.MaKhachHang = MaKhachHang;
         this.sdt = sdt;
         this.email = email;
         this.HanhLy = HanhLy;
@@ -122,12 +122,12 @@ public class ThanhToan {
         this.KhachhangString = KhachhangString;
     }
 
-    public String getCmnd() {
-        return cmnd;
+    public String getMaKhachHang() {
+        return MaKhachHang;
     }
 
-    public void setCmnd(String cmnd) {
-        this.cmnd = cmnd;
+    public void setMaKhachHang(String MaKhachHang) {
+        this.MaKhachHang = MaKhachHang;
     }
 
     public String getSdt() {

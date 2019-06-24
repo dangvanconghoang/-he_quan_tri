@@ -5,23 +5,77 @@
  */
 package Model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
  * @author hoangdang
  */
 public class DanhSachChuyenBay {
-    private String MaHMB;
     private String MaCB;
+    private HangMayBay HangMayBay;
     private String MaVe;
-    private String DiemKhoiHanh;
-    private String DiemDen;
+    private SanBay DiemKhoiHanh;
+    private SanBay DiemDen;
     private String GioKH;
     private String GioKH1;
     private int TgBay;
     private int TgBay1;
+    private Timestamp ThoiGianKhoiHanh;
+    private LocalDate NgayKhoiHanh;
+    private LocalTime GioKhoiHanh;
 
+    public HangMayBay getHangMayBay() {
+        return HangMayBay;
+    }
+
+    public void setHangMayBay(HangMayBay HangMayBay) {
+        this.HangMayBay = HangMayBay;
+    }
+
+    public LocalDate getNgayKhoiHanh() {
+        return NgayKhoiHanh;
+    }
+
+    public void setNgayKhoiHanh(LocalDate NgayKhoiHanh) {
+        this.NgayKhoiHanh = NgayKhoiHanh;
+    }
+
+    public LocalTime getGioKhoiHanh() {
+        return GioKhoiHanh;
+    }
+
+    public void setGioKhoiHanh(LocalTime GioKhoiHanh) {
+        this.GioKhoiHanh = GioKhoiHanh;
+    }
+    
+    
+    public SanBay getDiemKhoiHanh() {
+        return DiemKhoiHanh;
+    }
+
+    public void setDiemKhoiHanh(SanBay DiemKhoiHanh) {
+        this.DiemKhoiHanh = DiemKhoiHanh;
+    }
+
+    public SanBay getDiemDen() {
+        return DiemDen;
+    }
+
+    public void setDiemDen(SanBay DiemDen) {
+        this.DiemDen = DiemDen;
+    }
+
+    public Timestamp getThoiGianKhoiHanh() {
+        return ThoiGianKhoiHanh;
+    }
+
+    public void setThoiGianKhoiHanh(Timestamp ThoiGianKhoiHanh) {
+        this.ThoiGianKhoiHanh = ThoiGianKhoiHanh;
+    }
+    
     private double GiaVe;
     private LocalDate NgayBayDate;
     private LocalDate NgayBayDate1;
@@ -33,11 +87,8 @@ public class DanhSachChuyenBay {
     }
 
     public DanhSachChuyenBay(String MaHMB, String MaCB, String MaVe, String DiemKhoiHanh, String DiemDen, String GioKH, String GioKH1, int TgBay, int TgBay1, double GiaVe, LocalDate NgayBayDate, LocalDate NgayBayDate1, int SLNgL, int SLTreEm, int LoaiVe) {
-        this.MaHMB = MaHMB;
         this.MaCB = MaCB;
         this.MaVe = MaVe;
-        this.DiemKhoiHanh = DiemKhoiHanh;
-        this.DiemDen = DiemDen;
         this.GioKH = GioKH;
         this.GioKH1 = GioKH1;
         this.TgBay = TgBay;
@@ -50,13 +101,6 @@ public class DanhSachChuyenBay {
         this.LoaiVe = LoaiVe;
     }
 
-    public String getMaHMB() {
-        return MaHMB;
-    }
-
-    public void setMaHMB(String MaHMB) {
-        this.MaHMB = MaHMB;
-    }
 
     public String getMaCB() {
         return MaCB;
@@ -72,22 +116,6 @@ public class DanhSachChuyenBay {
 
     public void setMaVe(String MaVe) {
         this.MaVe = MaVe;
-    }
-
-    public String getDiemKhoiHanh() {
-        return DiemKhoiHanh;
-    }
-
-    public void setDiemKhoiHanh(String DiemKhoiHanh) {
-        this.DiemKhoiHanh = DiemKhoiHanh;
-    }
-
-    public String getDiemDen() {
-        return DiemDen;
-    }
-
-    public void setDiemDen(String DiemDen) {
-        this.DiemDen = DiemDen;
     }
 
     public String getGioKH() {

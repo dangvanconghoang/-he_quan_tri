@@ -6,9 +6,10 @@
 package Controller;
 
 import Model.ChiTietVe;
-import Model.ChiTietVeDAO;
+import DAL.ChiTietVeDAO;
 import Model.DatVeMayBay;
-import Model.DatVeMayBayDAO;
+import DAL.DatVeMayBayDAO;
+import DAL.SanBayDAO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -54,8 +55,6 @@ public class DatVeMayBayController implements Initializable {
     private JFXComboBox<Integer> cbBoxTreEm;
     @FXML
     private JFXComboBox<Integer> cbBoxNguoiLon;
-    @FXML
-    private JFXComboBox<String> cbBoxLoaiGhe;
 
     @FXML
     private JFXButton btnTimChuyenBay;
@@ -65,43 +64,39 @@ public class DatVeMayBayController implements Initializable {
     ObservableList<String> listSanBays = FXCollections.observableArrayList();
     
     private DatVeMayBayDAO datVeDAO;
-            private AnchorPane rootPane;
+    private AnchorPane rootPane;
 
     @FXML
-    public void handleTimChuyenBay(ActionEvent event) throws IOException{
-        
-            if ( cbBoxKhoiHanh.getValue() ==  null  ||  cbBoxDiemDen.getValue() ==  null ||  dPNgayDi.getValue() ==  null ||  cbBoxLoaiGhe.getValue() ==  null ) {
+    public void handleTimChuyenBay(ActionEvent event) throws IOException{ 
+            if ( cbBoxKhoiHanh.getValue() ==  null  ||  cbBoxDiemDen.getValue() ==  null ||  dPNgayDi.getValue() ==  null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Lỗi rồi ");
                 alert.setContentText("phải điền dủ thông tin :) ");
                 alert.showAndWait();
             }
-             DatVeMayBay dvmb = new DatVeMayBay();
-
-            dvmb.setDiemKhoiHanh(cbBoxKhoiHanh.getValue());
-            dvmb.setDiemDen(cbBoxDiemDen.getValue());
+            
+            DatVeMayBay dvmb = new DatVeMayBay();
+            dvmb.setDiemKhoiHanh(cbBoxKhoiHanh.getSelectionModel().getSelectedItem());
+            dvmb.setDiemDen(cbBoxDiemDen.getSelectionModel().getSelectedItem());
             dvmb.setNgay(dPNgayDi.getValue());
             dvmb.setSLNguoiLon(cbBoxNguoiLon.getValue());
             dvmb.setSLTreEM(cbBoxTreEm.getValue());
-             dvmb.setLoaiVe(1);
-            if (cbBoxLoaiGhe.getValue().equals("Thương Gia")) {
-                dvmb.setLoaiVe(1);
-            } else {dvmb.setLoaiVe(0); }
+            dvmb.setLoaiVe(1);
               
             String DiemDi = dvmb.getDiemKhoiHanh();
             String DiemDen = dvmb.getDiemDen();
-            LocalDate NgayDate = dvmb.getNgay();
+            LocalDate ngaydi = dvmb.getNgay();
             int LoaiVe = dvmb.getLoaiVe();
             int SoNL = dvmb.getSLNguoiLon();
             int SoTreE = dvmb.getSLTreEM();
             LocalDate ngayve = this.dPNgayVe.getValue();
             
-//            if ( DiemDi ==  DiemDen) {
-//                    Alert alert = new Alert(Alert.AlertType.ERROR);
-//                    alert.setTitle("Lỗi rồi ");
-//                    alert.setContentText("Điểm  đi và điểm đến không được trùng nhau :) ");
-//                    alert.showAndWait();
-//                }
+            if ( DiemDi ==  DiemDen) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Lỗi rồi ");
+                    alert.setContentText("Điểm  đi và điểm đến không được trùng nhau :) ");
+                    alert.showAndWait();
+            }
 //           
         
             AnchorPane paneDanhSachChuyenBay = new AnchorPane();
@@ -109,19 +104,19 @@ public class DatVeMayBayController implements Initializable {
       
             if (ngayve==null) {
                 FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneDanhSachChuyenBay, "/View/DanhSachChuyenBay.fxml");
-                fXMLLoader.<DanhSachChuyenBayController>getController().ChuyenDuLieu(DiemDi, DiemDen, NgayDate, LoaiVe, SoNL, SoTreE);
+                fXMLLoader.<DanhSachChuyenBayController>getController().ChuyenDuLieu(DiemDi, DiemDen, ngaydi, SoNL, SoTreE, false, null);
                 GeneralFuntion.FitChildContent(paneDanhSachChuyenBay);
 
             } else {
                
-                if ( ngayve.isBefore(NgayDate) ) {
+                if ( ngayve.isBefore(ngaydi) ) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Lỗi rồi ");
                     alert.setContentText("Ngày về phải lớn hơn này đi  :) ");
                     alert.showAndWait();
                 } else {
                     FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneDanhSachChuyenBay, "/View/DanhSachChuyenBay.fxml");
-                    fXMLLoader.<DanhSachChuyenBayController>getController().ChuyenDuLieuKhuHoi(DiemDi, DiemDen, NgayDate, ngayve, LoaiVe, SoNL, SoTreE);
+                    fXMLLoader.<DanhSachChuyenBayController>getController().ChuyenDuLieu(DiemDi, DiemDen, ngaydi, SoNL, SoTreE, false, ngayve);
                     GeneralFuntion.FitChildContent(paneDanhSachChuyenBay);
                 }
             }
@@ -134,7 +129,6 @@ public class DatVeMayBayController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cbBoxNguoiLon.setItems(cbBoxSoLuongVeList);
         cbBoxTreEm.setItems(cbBoxSoLuongVeList);
-        cbBoxLoaiGhe.setItems(cbBoxLoaiGheList);
         cbBoxNguoiLon.setPromptText("Người lớn");
         cbBoxTreEm.setPromptText("Trẻ em");
         try {
@@ -147,14 +141,8 @@ public class DatVeMayBayController implements Initializable {
     void LoadData()throws SQLException{
         datVeDAO = new DatVeMayBayDAO();
         listSanBays = datVeDAO.getDiaDiemSanBay();
-        cbBoxKhoiHanh.getItems().add(new String("Tp Hồ Chí Minh"));
-        cbBoxKhoiHanh.getItems().add(new String("Hà Nội"));
-        cbBoxKhoiHanh.getItems().add(new String("Đà Nẵng"));
-        cbBoxKhoiHanh.getItems().add(new String("Thừa Thiên - Huế"));
-        cbBoxDiemDen.getItems().add(new String("Tp Hồ Chí Minh"));
-        cbBoxDiemDen.getItems().add(new String("Hà Nội"));
-        cbBoxDiemDen.getItems().add(new String("Đà Nẵng"));
-        cbBoxDiemDen.getItems().add(new String("Thừa Thiên - Huế"));
+        cbBoxKhoiHanh.setItems(SanBayDAO.getThanhPho());
+        cbBoxDiemDen.setItems(SanBayDAO.getThanhPho());
     }
     
    

@@ -6,7 +6,10 @@
 package Controller;
 
 import Model.ChiTietVe;
-import Model.ChiTietVeDAO;
+import DAL.ChiTietVeDAO;
+import Model.DanhSachChuyenBay;
+import Model.KhachHang;
+import Model.Ve;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -67,9 +70,7 @@ public class ChiTietVeController implements Initializable {
     @FXML
     private JFXTextField tfTenHK;
     @FXML
-    private JFXTextField tfCMND;
-    @FXML
-    private JFXTextField tfSDT;
+    private JFXTextField tfMaKhachHang;
     @FXML
     private JFXTextField tfEmail;
     @FXML
@@ -103,10 +104,6 @@ public class ChiTietVeController implements Initializable {
     @FXML
     private JFXButton btnQuayLai;
     @FXML
-    private JFXTextField tfHanhLy;
-    @FXML
-    private JFXTextField tfSoGhe;
-    @FXML
     private JFXButton btnInVe;
     /**ChiTietVeDAO
      * Initializes the controller class.
@@ -126,14 +123,11 @@ public class ChiTietVeController implements Initializable {
         tfTGBay.setEditable(false);
         tpGioKH.setEditable(false);
         tfTenHK.setEditable(false);
-        tfCMND.setEditable(false);
-        tfSDT.setEditable(false);
+        tfMaKhachHang.setEditable(false);
         tfEmail.setEditable(false);
         tfLoaiHK.setEditable(false);
         tfLoaiVe.setEditable(false);
         tfGiaVe.setEditable(false);
-        tfHanhLy.setEditable(false);
-        tfSoGhe.setEditable(false);
     }    
     
     //Chuyển dữ liệu từ LichSuBanVe qua from này
@@ -146,39 +140,45 @@ public class ChiTietVeController implements Initializable {
         catch(Exception e){
             System.out.println("Can't load data in initialize");
         }
-        if(dpNgayKH.getValue().compareTo(java.time.LocalDate.now())>=0)
-            btnHuyVe.setDisable(true);
-        else btnHuyVe.setDisable(false);
+//        if(dpNgayKH.getValue().compareTo(java.time.LocalDate.now())>=0)
+//            btnHuyVe.setDisable(true);
+//        else btnHuyVe.setDisable(false);
     }
     
     //Load data
     public void LoadData()throws SQLException{
-        ct=new ChiTietVeDAO();
-        ChiTietVe ctv=new ChiTietVe();
-        ctv=ct.getChuyenBay(tfMaCB.getText());
-        tfHangMB.setText(String.valueOf(ctv.getTenHMB()));
-        tfDiemKH.setText(String.valueOf(ctv.getDiemKhoiHanh()));
-        tfDiemDen.setText(String.valueOf(ctv.getDiemDen()));
-        tfSanBayDi.setText(String.valueOf(ctv.getSanBayDi()));
-        dpNgayKH.setValue(LocalDate.parse(ctv.getNgayKhoiHanh().toString()));
-        tfTGBay.setText(String.valueOf(ctv.getThoiGianBay()));
-        tpGioKH.setValue(LocalTime.parse(ctv.getGioKhoiHanh().toString()));
-        ctv=ct.getSanBayDen(tfMaCB.getText());
-        tfSanBayDen.setText(String.valueOf(ctv.getSanBayDen()));
-        ctv=ct.getChiTietVe(tfMaVe.getText());
-        tfTenHK.setText(ctv.getTenHK());
-        tfCMND.setText(ctv.getCMND());
-        tfSDT.setText(ctv.getSDT());
-        tfEmail.setText(String.valueOf(ctv.getEmail()));
-        tfHanhLy.setText(String.valueOf(ctv.getHanhLy()));
-        tfSoGhe.setText(ctv.getSoGhe());
-        if(ctv.getLoaiHK()==false)
+        ct = new ChiTietVeDAO();
+        ChiTietVe ctv = new ChiTietVe();
+        
+        ctv.setChuyenBay(ct.getChuyenBay(tfMaCB.getText()));
+        ctv.setKhachHang(ct.getKhachHang(tfMaVe.getText()));
+        ctv.setVe(ct.getVe(tfMaVe.getText()));
+        ctv.setGia(ct.getGia(tfMaVe.getText()));
+        
+        tfHangMB.setText(ctv.getChuyenBay().getHangMayBay().toString());
+        tfDiemKH.setText(ctv.getChuyenBay().getDiemKhoiHanh().getThanhPho());
+        tfDiemDen.setText(ctv.getChuyenBay().getDiemDen().getThanhPho());
+        tfSanBayDi.setText(ctv.getChuyenBay().getDiemKhoiHanh().toString());
+        dpNgayKH.setValue(ctv.getChuyenBay().getNgayKhoiHanh());
+        tfTGBay.setText(String.valueOf(ctv.getChuyenBay().getTgBay()));
+        tpGioKH.setValue(ctv.getChuyenBay().getGioKhoiHanh());    
+        tfSanBayDen.setText(ctv.getChuyenBay().getDiemDen().toString());
+//                
+        tfTenHK.setText(ctv.getKhachHang().getTenKH());
+        tfMaKhachHang.setText(ctv.getKhachHang().getMaKhachHang());
+        tfEmail.setText(ctv.getKhachHang().getEmail());
+        
+        if(ctv.getKhachHang().getLoaiHK() == 0)
             tfLoaiHK.setText("Trẻ em");
-        else tfLoaiHK.setText("Người lớn");
-        if(ctv.getLoaiVe()==false)
-            tfLoaiVe.setText("Phổ thông");
-        else tfLoaiVe.setText("Thương gia");
-        tfGiaVe.setText(String.valueOf(Math.round(Double.parseDouble(ctv.getGia()))));
+        else 
+            tfLoaiHK.setText("Người lớn");
+        
+        if(ctv.getVe().getLoaiVe().getLoaiVe() == 0)
+            tfLoaiVe.setText("Thường");
+        else
+            tfLoaiVe.setText("VIP");
+        
+        tfGiaVe.setText(String.valueOf(ctv.getGia()));
     }
     
     //Hủy vé
@@ -226,8 +226,7 @@ public class ChiTietVeController implements Initializable {
         btnSua.setVisible(false);
         btnLuu.setVisible(true);
         tfTenHK.setEditable(true);
-        tfCMND.setEditable(true);
-        tfSDT.setEditable(true);
+        tfMaKhachHang.setEditable(true);
         tfEmail.setEditable(true);
         tfLoaiHK.setEditable(false);
         tfGiaVe.setEditable(false);
@@ -236,83 +235,86 @@ public class ChiTietVeController implements Initializable {
     //Lưu thông tin vừa sửa
     @FXML
     private void btnLuuClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION); 
-        alert.setTitle("Cảnh báo!");
-        alert.setHeaderText("Cảnh báo!");
-        alert.setContentText("Bạn có thật sự muốn lưu không?");
-        ButtonType buttonTypeYes = new ButtonType("Đồng ý");
-        ButtonType buttonTypeNo = new ButtonType("Hủy");
-        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-        Optional<ButtonType> result = alert.showAndWait();
-        switch (result.get().getText()) {
-            case "Đồng ý": {
-                btnSua.setVisible(true);
-                btnLuu.setVisible(false);
-                ChiTietVe ct1=new ChiTietVe();
-                ct1.setTenHK(tfTenHK.getText());
-                ct1.setCMND(tfCMND.getText());
-                ct1.setSDT(tfSDT.getText());
-                ct1.setEmail(tfEmail.getText());
-                ct1.setMaVe(tfMaVe.getText());
-                if(tfLoaiHK.getText()=="Người lón")
-                ct1.setLoaiHK(false);
-                else  ct1.setLoaiHK(true);
-                ct1.setGia(tfGiaVe.getText());
-                try{
-                if(tfLoaiHK.getText().equals("Người lớn")){
-                ct.Luu2(ct1);
-                }else ct.Luu(ct1);
-                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                alert1.setTitle("Thông báo");
-                alert1.setHeaderText("Thông báo");
-                alert1.setContentText("Thành công!!");
-                alert1.showAndWait();
-                btnSua.setVisible(true);
-                btnLuu.setVisible(false);
-                tfTenHK.setEditable(false);
-                tfCMND.setEditable(false);
-                tfSDT.setEditable(false);
-                tfEmail.setEditable(false);
-                tfLoaiHK.setEditable(false);
-                tfGiaVe.setEditable(false);
-                try {
-                    LoadData();
-                } catch (Exception e) {
-                    System.out.print("Can't load data!!!!!");
-                }
-                }catch(Exception e){
-                    System.out.println("Can't save ChiTietVe!");
-                    Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                        alert2.setTitle("Thông báo");
-                        alert2.setHeaderText("Thông báo");
-                        alert2.setContentText("Lỗi cập nhật dữ liệu!!");
-                        alert2.showAndWait();
-                }
-                try {
-                    LoadData();
-                } catch (Exception e) {
-                    System.out.print("Can't load data!!!!!");
-                }
-                }
-                break;
-            case "Hủy":
-                try {
-                    LoadData();
-                } catch (Exception e) {
-                    System.out.print("Can't load data!!!!!");
-                }
-                btnSua.setVisible(true);
-                btnLuu.setVisible(false);
-                tfTenHK.setEditable(false);
-                tfCMND.setEditable(false);
-                tfSDT.setEditable(false);
-                tfEmail.setEditable(false);
-                tfLoaiHK.setEditable(false);
-                tfGiaVe.setEditable(false);
-                break;
-            default:
-                break;
-        }
+       Alert alert = new Alert(Alert.AlertType.CONFIRMATION); 
+       alert.setTitle("Cảnh báo!");
+       alert.setHeaderText("Cảnh báo!");
+       alert.setContentText("Bạn có thật sự muốn lưu không?");
+       ButtonType buttonTypeYes = new ButtonType("Đồng ý");
+       ButtonType buttonTypeNo = new ButtonType("Hủy");
+       alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+       Optional<ButtonType> result = alert.showAndWait();
+       switch (result.get().getText()) {
+           case "Đồng ý": {
+               btnSua.setVisible(true);
+               btnLuu.setVisible(false);
+               ChiTietVe ct1 = new ChiTietVe();
+               ct1.setVe(new Ve());
+               ct1.setKhachHang(new KhachHang());
+               ct1.getVe().setMaVe(tfMaVe.getText());
+               ct1.getKhachHang().setTenKH(tfTenHK.getText());
+               ct1.getKhachHang().setMaKhachHang(tfMaKhachHang.getText());
+               ct1.getKhachHang().setEmail(tfEmail.getText());
+               ct1.getVe().setMaVe(tfMaVe.getText());
+
+               if(tfLoaiHK.getText()=="Người lón")
+                    ct1.getKhachHang().setLoaiHK(1);
+               else  
+                    ct1.getKhachHang().setLoaiHK(0);
+               
+               ct1.setGia(Integer.parseInt(tfGiaVe.getText()));
+
+               try{
+                    ct.Luu(ct1);
+
+                   Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                   alert1.setTitle("Thông báo");
+                   alert1.setHeaderText("Thông báo");
+                   alert1.setContentText("Thành công!!");
+                   alert1.showAndWait();
+                   btnSua.setVisible(true);
+                   btnLuu.setVisible(false);
+                   tfTenHK.setEditable(false);
+                   tfMaKhachHang.setEditable(false);
+                   tfEmail.setEditable(false);
+                   tfLoaiHK.setEditable(false);
+                   tfGiaVe.setEditable(false);
+               try {
+                   LoadData();
+               } catch (Exception e) {
+                   System.out.print("Can't load data!!!!!");
+               }
+               }catch(Exception e){
+                   System.out.println("Can't save ChiTietVe!");
+                   Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                       alert2.setTitle("Thông báo");
+                       alert2.setHeaderText("Thông báo");
+                       alert2.setContentText("Lỗi cập nhật dữ liệu!!");
+                       alert2.showAndWait();
+               }
+               try {
+                   LoadData();
+               } catch (Exception e) {
+                   System.out.print("Can't load data!!!!!");
+               }
+               }
+               break;
+           case "Hủy":
+               try {
+                   LoadData();
+               } catch (Exception e) {
+                   System.out.print("Can't load data!!!!!");
+               }
+               btnSua.setVisible(true);
+               btnLuu.setVisible(false);
+               tfTenHK.setEditable(false);
+               tfMaKhachHang.setEditable(false);
+               tfEmail.setEditable(false);
+               tfLoaiHK.setEditable(false);
+               tfGiaVe.setEditable(false);
+               break;
+           default:
+               break;
+       }
     }
     
     //Hàm chuyển form
@@ -331,7 +333,7 @@ public class ChiTietVeController implements Initializable {
     @FXML
     private void btnInVeClick(ActionEvent event) throws IOException, DocumentException {
         try {
-            File file = new File("C:\\Users\\win10pro\\Desktop\\Secret Folder\\Propraming\\Java\\QuanLyBanVeMayBay\\src\\File\\" + tfMaVe.getText() + ".pdf");
+            File file = new File("C:\\Users\\blues\\OneDrive\\Desktop\\File\\" + tfMaVe.getText() + ".pdf");
             System.out.println("test");
             if (file.createNewFile()) {
                 System.out.println("test2");
@@ -356,7 +358,7 @@ public class ChiTietVeController implements Initializable {
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
         // Tạo đối tượng PdfWriter
-        PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\win10pro\\Desktop\\Secret Folder\\Propraming\\Java\\QuanLyBanVeMayBay\\src\\File\\" + tfMaVe.getText() + ".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\blues\\OneDrive\\Desktop\\File\\" + tfMaVe.getText() + ".pdf"));
         
         // Mở file để thực hiện ghi
         document.open();
@@ -378,8 +380,8 @@ public class ChiTietVeController implements Initializable {
         document.add(loaihk);
         Paragraph tenhk = new Paragraph("Tên hành khách: "+tfTenHK.getText(),font10);
         document.add(tenhk);
-        Paragraph cmnd = new Paragraph("CMND: "+tfCMND.getText(),font10);
-        document.add(cmnd);
+        Paragraph makhachhang = new Paragraph("Mã khách hàng: "+tfMaKhachHang.getText(),font10);
+        document.add(makhachhang);
         Paragraph noidi = new Paragraph("Nơi đi: "+tfDiemKH.getText(),font10);
         document.add(noidi);
         Paragraph noiden = new Paragraph("Nơi đến: "+tfDiemDen.getText(),font10);
@@ -390,13 +392,11 @@ public class ChiTietVeController implements Initializable {
         document.add(giokh);
         Paragraph tgbay = new Paragraph("Thời gian bay: "+tfTGBay.getText()+" tiếng",font10);
         document.add(tgbay);
-        Paragraph soghe = new Paragraph("Ghế: "+tfSoGhe.getText(),font10);
-        document.add(soghe);
         System.out.println("0");
         // Đóng File
         document.close();
         System.out.println("1");
-        File file = new File("C:\\Users\\win10pro\\Desktop\\Secret Folder\\Propraming\\Java\\QuanLyBanVeMayBay\\src\\File\\" + tfMaVe.getText() + ".pdf");//đường dẫn file 
+        File file = new File("C:\\Users\\blues\\OneDrive\\Desktop\\File\\" + tfMaVe.getText() + ".pdf");//đường dẫn file 
         System.out.println("3");
         Desktop dt = Desktop.getDesktop();
         System.out.println("4");

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3817faf4-41a5-4f0f-8389-e53fca54212e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3817faf4-41a5-4f0f-8389-e53fca54212e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="qlbvmb"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#C5C7D0"/>
@@ -34,7 +36,7 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="pie char"/>
 		<queryString language="SQL">
-			<![CDATA[select loaihk, count(*) as sl 
+			<![CDATA[select loaihk, count(*) as sl
 from ChiTietChuyenBay
 GROUP by LoaiHK]]>
 		</queryString>
@@ -49,12 +51,11 @@ GROUP by LoaiHK]]>
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="linechar"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang, ve.LoaiVe, SUM(ct.Gia) as tongtien 
+			<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang, ve.LoaiVe, SUM(ct.Gia) as tongtien
 from ChiTietChuyenBay ct, ChuyenBay cb,Ve
 WHERE ct.MaCB = cb.MaCB and Ve.MaVe = ct.MaVe
 GROUP by MONTH(cb.NgayKhoiHanh), ve.LoaiVe
-ORDER by thang
-]]>
+ORDER by thang]]>
 		</queryString>
 		<field name="thang" class="java.lang.Integer">
 			<property name="com.jaspersoft.studio.field.label" value="thang"/>
@@ -109,8 +110,8 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 			<groupExpression><![CDATA[$F{ln}]]></groupExpression>
 		</group>
 	</subDataset>
-	<queryString language="SQL">
-		<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang, SUM(ct.Gia) as tongtien 
+	<queryString>
+		<![CDATA[SELECT MONTH(cb.NgayKhoiHanh) as thang, SUM(ct.Gia) as tongtien
 from ChiTietChuyenBay ct, ChuyenBay cb
 WHERE ct.MaCB = cb.MaCB
 GROUP by MONTH(cb.NgayKhoiHanh)]]>
@@ -240,7 +241,7 @@ GROUP by MONTH(cb.NgayKhoiHanh)]]>
 					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
 					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
 				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="table" uuid="92fd945a-1397-46b6-b6af-79544e65c04a">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

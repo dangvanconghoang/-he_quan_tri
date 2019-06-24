@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.DanhSachChuyenBay;
-import Model.DanhSachChuyenBayDAO;
+import DAL.DanhSachChuyenBayDAO;
 import Model.LichSuBanVe;
 import com.jfoenix.controls.JFXButton;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
@@ -143,10 +143,10 @@ public class DanhSachChuyenBayController1 implements Initializable {
     
     // Load dữ liệu lên table
     void LoadData()throws SQLException{
-        dscbdao = new DanhSachChuyenBayDAO();
-        dscb=dscbdao.getDanhSachChuyenBays1(this.DiemDi1, this.DiemDen1,this.HangMBString, this.sv, this.LoaiVe, this.NgayVe);
-         setCellValueFactory();
-        table.setItems(dscb);
+//        dscbdao = new DanhSachChuyenBayDAO();
+//        dscb=dscbdao.getDanhSachChuyenBays1(this.DiemDi1, this.DiemDen1,this.HangMBString, this.sv, this.LoaiVe, this.NgayVe);
+//         setCellValueFactory();
+//        table.setItems(dscb);
     }
       //Gán giá trị vào cho cột
     void setCellValueFactory(){
@@ -157,30 +157,30 @@ public class DanhSachChuyenBayController1 implements Initializable {
     }
     
     
-    @FXML
-    public void handleNext(ActionEvent event) throws IOException{
-   
-        ctChuyenBay = table.getSelectionModel().getSelectedItem();
-
-        this.TGbay1=ctChuyenBay.getTgBay();
-        this.GioKH1 = ctChuyenBay.getGioKH();
-        this.GiaVe1=(int) ctChuyenBay.getGiaVe();
-        this.MaCBString1=ctChuyenBay.getMaCB();
-        this.HangMBKH=ctChuyenBay.getMaHMB();
-        System.out.println(GiaVe);
-        System.out.println(GiaVe1);
-        if ( ctChuyenBay.getGioKH() == null ) {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Lỗi rồi ");
-           alert.setContentText("Vui lòng chọn chuyến bay :) ");
-           alert.showAndWait();
-       }
-        AnchorPane paneThanhToan = new AnchorPane();
-        FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneThanhToan, "/View/ThanhToan.fxml");
-        fXMLLoader.<ThanhToanController>getController().ChuyenDuLieuKhuHoi(MaCBString,MaCBString1,DiemDi, DiemDen,DiemDi1, DiemDen1, NgayDi, NgayVe,GioKH, GioKH1,TGbay,TGbay1,HangMBString, LoaiVe, SoNL, SoTreEm,GiaVe,GiaVe1);
-        GeneralFuntion.FitChildContent(paneThanhToan);
-// 
+//    @FXML
+//    public void handleNext(ActionEvent event) throws IOException{
 //   
-
-    }
+//        ctChuyenBay = table.getSelectionModel().getSelectedItem();
+//
+//        this.TGbay1=ctChuyenBay.getTgBay();
+//        this.GioKH1 = ctChuyenBay.getGioKH();
+//        this.GiaVe1=(int) ctChuyenBay.getGiaVe();
+//        this.MaCBString1=ctChuyenBay.getMaCB();
+//        this.HangMBKH=ctChuyenBay.getMaHMB();
+//        System.out.println(GiaVe);
+//        System.out.println(GiaVe1);
+//        if ( ctChuyenBay.getGioKH() == null ) {
+//           Alert alert = new Alert(Alert.AlertType.ERROR);
+//           alert.setTitle("Lỗi rồi ");
+//           alert.setContentText("Vui lòng chọn chuyến bay :) ");
+//           alert.showAndWait();
+//       }
+//        AnchorPane paneThanhToan = new AnchorPane();
+//        FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneThanhToan, "/View/ThanhToan.fxml");
+//        fXMLLoader.<ThanhToanController>getController().ChuyenDuLieuKhuHoi(MaCBString,MaCBString1,DiemDi, DiemDen,DiemDi1, DiemDen1, NgayDi, NgayVe,GioKH, GioKH1,TGbay,TGbay1,HangMBString, LoaiVe, SoNL, SoTreEm,GiaVe,GiaVe1);
+//        GeneralFuntion.FitChildContent(paneThanhToan);
+//// 
+////   
+//
+//    }
 }

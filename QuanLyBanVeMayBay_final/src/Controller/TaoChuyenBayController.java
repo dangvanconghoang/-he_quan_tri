@@ -5,7 +5,9 @@
  */
 package Controller;
 import Model.TaoChuyenBay;
-import Model.TaoChuyenBayDAO;
+import DAL.TaoChuyenBayDAO;
+import Model.HangMayBay;
+import Model.SanBay;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -19,13 +21,17 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import  javafx.scene.control.Button;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -57,10 +63,6 @@ public class TaoChuyenBayController implements Initializable {
    @FXML
    private TableColumn<TaoChuyenBay,String> colTenHMB;
    @FXML
-   private TableColumn<TaoChuyenBay,String> colDiemKH;
-   @FXML
-   private TableColumn<TaoChuyenBay,String> colDiemDen;
-   @FXML
    private TableColumn<TaoChuyenBay,String> colSBDi;
    @FXML
    private TableColumn<TaoChuyenBay,String> colSBDen;
@@ -69,11 +71,11 @@ public class TaoChuyenBayController implements Initializable {
    @FXML
    private TableColumn<TaoChuyenBay,Integer> colSoGheThuongTrong;
    @FXML
-   private TableColumn<TaoChuyenBay,Date> colNgayKH;
+   private TableColumn<TaoChuyenBay,LocalDate> colNgayKH;
    @FXML
    private TableColumn<TaoChuyenBay,Integer> colTGBay;
    @FXML
-   private TableColumn<TaoChuyenBay,Time> colGioKH;
+   private TableColumn<TaoChuyenBay,LocalTime> colGioKH;
    @FXML
    private TableColumn<TaoChuyenBay,String> colGiaVe;
    ObservableList<TaoChuyenBay> listChuyenBay = FXCollections.observableArrayList();
@@ -105,63 +107,57 @@ public class TaoChuyenBayController implements Initializable {
     @FXML
     private JFXTextField tfTimKiem;
     @FXML
-    private JFXButton btnThemMoi;
+    private JFXComboBox<HangMayBay> cbHangMB;
+    
     @FXML
-    private JFXComboBox<String> cbHangMB;
+    private JFXComboBox<SanBay> cbSBDi;
+    
     @FXML
-    private JFXComboBox<String> cbDiemKH;
-    @FXML
-    private JFXComboBox<String> cbDiemDen;
-    String[] array1 ={"VA","JP","VJ","BA"};
-    @FXML
-    private JFXTextField tfSBDi;
-    @FXML
-    private JFXTextField tfSBDen;
+    private JFXComboBox<SanBay> cbSBDen;
+    
+    ObservableList<HangMayBay> cbBoxHangMBList;
+
     public TaoChuyenBayController() {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //TODO
-        tfSBDi.setEditable(false);
-        tfSBDen.setEditable(false);
+//        tfSBDi.setEditable(false);
+//        tfSBDen.setEditable(false);
         btnSua.setDisable(true);
         btnXoa.setDisable(true);
-        setCombobox();
+        
+        try {
+           setCombobox();
+        } catch (SQLException ex) {
+           Logger.getLogger(TaoChuyenBayController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         try{
-        LoadData();
+            LoadData();
         }catch (Exception e){
             System.out.println("Loi load data");
         }
     }    
-    void setCombobox(){
-        cbHangMB.getItems().add(new String("Vietnam Airlines"));
-        cbHangMB.getItems().add(new String("Jetstar Pacific"));
-        cbHangMB.getItems().add(new String("Vietjet Air"));
-        cbHangMB.getItems().add(new String("Bamboo Airways"));
+    void setCombobox() throws SQLException{
+        cbHangMB.setItems(TaoChuyenBayDAO.getHangMayBay());
         cbHangMB.setPromptText("Chọn hãng máy bay");
-        cbDiemKH.getItems().add(new String("Tp Hồ Chí Minh"));
-        cbDiemKH.getItems().add(new String("Hà Nội"));
-        cbDiemKH.getItems().add(new String("Đà Nẵng"));
-        cbDiemKH.getItems().add(new String("Thừa Thiên - Huế"));
-        cbDiemKH.setPromptText("Chọn điểm khởi hành");
-        cbDiemDen.getItems().add(new String("Tp Hồ Chí Minh"));
-        cbDiemDen.getItems().add(new String("Hà Nội"));
-        cbDiemDen.getItems().add(new String("Đà Nẵng"));
-        cbDiemDen.getItems().add(new String("Thừa Thiên - Huế"));
-        cbDiemDen.setPromptText("Chọn điểm đến");
+        cbSBDi.setItems(TaoChuyenBayDAO.getSanbay());
+        cbSBDi.setPromptText("Chọn sân bay đi");
+        cbSBDen.setItems(TaoChuyenBayDAO.getSanbay());
+        cbSBDen.setPromptText("Chọn sân bay đến");
+
     }
     void setCellValueFactory(){
-         colMaCB.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("MaCB"));
-         colTenHMB.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("TenHMB"));
-         colDiemKH.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("DiemKhoiHanh"));
-         colDiemDen.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("DiemDen"));
-         colSBDi.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("SanBayDi"));
-        colSBDen.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("SanBayDen"));
+        colMaCB.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("MaCB"));
+        colTenHMB.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("TenHangMayBay"));
+        colSBDi.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("TenSanBayDi"));
+        colSBDen.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("TenSanBayDen"));
         colSoGheVipTrong.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, Integer>("SoGheVipTrong"));
         colSoGheThuongTrong.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, Integer>("SoGheThuongTrong"));
-        colNgayKH.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, Date>("NgayKhoiHanh"));
         colTGBay.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, Integer>("ThoiGianBay"));
-        colGioKH.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, Time>("GioKhoiHanh"));
+        colNgayKH.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, LocalDate>("NgayKhoiHanh"));
+        colGioKH.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, LocalTime>("GioKhoiHanh"));
         colGiaVe.setCellValueFactory(new PropertyValueFactory<TaoChuyenBay, String>("GiaVe"));
     }
     private static Method columnToFitMethod;
@@ -176,7 +172,7 @@ public class TaoChuyenBayController implements Initializable {
     }
     void LoadData()throws SQLException{
         tc = new TaoChuyenBayDAO();
-        listChuyenBay=tc.getlistChuyenBay();
+        listChuyenBay = tc.getlistChuyenBay();
         setCellValueFactory();
         tbchuyenbay.setItems(listChuyenBay);
     }
@@ -207,38 +203,23 @@ public class TaoChuyenBayController implements Initializable {
     @FXML
     private void tbClick(MouseEvent e) {
         if(MouseButton.PRIMARY == e.getButton() && e.getClickCount() == 1){
-            btnThem.setDisable(true);
             btnSua.setDisable(false);
             btnXoa.setDisable(false);
             tfMaCB.setEditable(false);
-            TaoChuyenBay tcb=tbchuyenbay.getSelectionModel().getSelectedItem();
-            tfMaCB.setText(String.valueOf(tcb.getMaCB()));
-            if(tcb.getTenHMB().equals("Vietnam Airlines"))
+            TaoChuyenBay tcb = tbchuyenbay.getSelectionModel().getSelectedItem();
+            
+            tfMaCB.setText(tcb.getMaCB());
+            
             cbHangMB.getSelectionModel().select(0);
-            else if (tcb.getTenHMB().equals("Jetstar Pacific"))
-            cbHangMB.getSelectionModel().select(1);
-            else if (tcb.getTenHMB().equals("Vietjet Air"))
-            cbHangMB.getSelectionModel().select(2);
-            else cbHangMB.getSelectionModel().select(3);
-            
-            if(tcb.getDiemKhoiHanh().equals("Tp Hồ Chí Minh"))
-                cbDiemKH.getSelectionModel().select(0);
-            else if (tcb.getDiemKhoiHanh().equals("Hà Nội"))
-                cbDiemKH.getSelectionModel().select(1);
-            else if (tcb.getDiemKhoiHanh().equals("Đà Nẵng"))
-                cbDiemKH.getSelectionModel().select(2);
-            else cbDiemKH.getSelectionModel().select(3);
-            
-            if(tcb.getDiemDen().equals("Tp Hồ Chí Minh"))
-                cbDiemDen.getSelectionModel().select(0);
-            else if (tcb.getDiemDen().equals("Hà Nội"))
-                cbDiemDen.getSelectionModel().select(1);
-            else if (tcb.getDiemDen().equals("Đà Nẵng"))
-                cbDiemDen.getSelectionModel().select(2);
-            else cbDiemDen.getSelectionModel().select(3);
-            
-            tfSBDi.setText(String.valueOf(tcb.getSanBayDi()));
-            tfSBDen.setText(String.valueOf(tcb.getSanBayDen()));
+            cbHangMB.getSelectionModel().select(tcb.getHangMayBay());
+//            cbDiemKH.getSelectionModel().select(0);
+//            cbDiemKH.getSelectionModel().select(tcb.getDiemKhoiHanh());
+//            cbDiemDen.getSelectionModel().select(0);
+//            cbDiemDen.getSelectionModel().select(tcb.getDiemDen());
+            cbSBDen.getSelectionModel().select(0);
+            cbSBDen.getSelectionModel().select(tcb.getSanBayDen());
+            cbSBDi.getSelectionModel().select(0);
+            cbSBDi.getSelectionModel().select(tcb.getSanBayDi());
             dpNgayKhoiHanh.setValue(LocalDate.parse(tcb.getNgayKhoiHanh().toString()));
             tfThoiGianBay.setText(String.valueOf(tcb.getThoiGianBay()));
             tpGioKhoiHanh.setValue(LocalTime.parse(tcb.getGioKhoiHanh().toString()));
@@ -247,48 +228,34 @@ public class TaoChuyenBayController implements Initializable {
     }
 
     @FXML
-    private void btnThemClick(ActionEvent event) {
-        TaoChuyenBay tcb=new TaoChuyenBay();
+    private void btnThemClick(ActionEvent event) throws SQLException {
+        TaoChuyenBay tcb = new TaoChuyenBay();
+        
         try {
-            tcb.setMaCB(tfMaCB.getText());
-            if(String.valueOf(cbHangMB.getValue()).equals("Vietnam Airlines"))
-            tcb.setMaHMB("VA");
-            else if (String.valueOf(cbHangMB.getValue()).equals("Jetstar Pacific"))
-            tcb.setMaHMB("JP");
-            else if (String.valueOf(cbHangMB.getValue()).equals("Vietjet Air"))
-            tcb.setMaHMB("VJ");
-            else tcb.setMaHMB("BA");
-            tcb.setDiemKhoiHanh(cbDiemKH.getValue());
-            tcb.setDiemDen(cbDiemDen.getValue());
-            if(tfSBDi.getText().equals("Tân Sơn Nhất"))
-                tcb.setSanBayDi("TSN");
-            else if(tfSBDi.getText().equals("Nội Bài"))
-                tcb.setSanBayDi("NB");
-            else if(tfSBDi.getText().equals("Đà Nẵng"))
-                tcb.setSanBayDi("DN");
-            else tcb.setSanBayDi("PB");
-            if(tfSBDen.getText().equals("Tân Sơn Nhất"))
-                tcb.setSanBayDen("TSN");
-            else if(tfSBDen.getText().equals("Nội Bài"))
-                tcb.setSanBayDen("NB");
-            else if(tfSBDen.getText().equals("Đà Nẵng"))
-                tcb.setSanBayDen("DN");
-            else tcb.setSanBayDen("PB");
-            tcb.setNgayKhoiHanh(Date.valueOf(dpNgayKhoiHanh.getValue()));
-            tcb.setGioKhoiHanh(Time.valueOf(tpGioKhoiHanh.getValue()));
+//            tcb.setMaCB(tfMaCB.getText());
+            tcb.setHangMayBay(cbHangMB.getSelectionModel().getSelectedItem());
+            tcb.setSanBayDi(cbSBDi.getSelectionModel().getSelectedItem());
+            tcb.setSanBayDen(cbSBDen.getSelectionModel().getSelectedItem());
+            tcb.setNgayKhoiHanh(dpNgayKhoiHanh.getValue());
+            tcb.setGioKhoiHanh(tpGioKhoiHanh.getValue());
+            LocalDateTime datetime = LocalDateTime.of(dpNgayKhoiHanh.getValue(), tpGioKhoiHanh.getValue());
+            tcb.setThoiGianKhoiHanh(Timestamp.valueOf(datetime));
             tcb.setThoiGianBay(Integer.parseInt(tfThoiGianBay.getText()));
-            tcb.setGiaVe(tfGiaVe.getText());
+            tcb.setGiaVe(Integer.parseInt(tfGiaVe.getText()));
             tc.addChuyenBay(tcb);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Successfully");
             alert.setContentText("Xin chúc mừng!");
             alert.show();
-        } catch (Exception e) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText("Error");
-        alert.setContentText("Xin lỗi bạn. Không thể lưu chuyến bay!");
-        alert.show();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Xin lỗi bạn. Không thể lưu chuyến bay!");
+            alert.show();
         }
+        
         try {
             LoadData();
             btnThem.setDisable(false);
@@ -296,8 +263,8 @@ public class TaoChuyenBayController implements Initializable {
             btnXoa.setDisable(true);
             tfMaCB.setEditable(true);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
+//            tfSBDi.setText("");
+//            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -312,48 +279,32 @@ public class TaoChuyenBayController implements Initializable {
     }
 
     @FXML
-    private void btnSuaClick(ActionEvent event) {
-        TaoChuyenBay tcb=new TaoChuyenBay();
+    private void btnSuaClick(ActionEvent event) throws SQLException {
+        TaoChuyenBay tcb = new TaoChuyenBay();
+        
         try {
             tcb.setMaCB(tfMaCB.getText());
-            if(String.valueOf(cbHangMB.getValue()).equals("Vietnam Airlines"))
-            tcb.setMaHMB("VA");
-            else if (String.valueOf(cbHangMB.getValue()).equals("Jetstar Pacific"))
-            tcb.setMaHMB("JP");
-            else if (String.valueOf(cbHangMB.getValue()).equals("Vietjet Air"))
-            tcb.setMaHMB("VJ");
-            else tcb.setMaHMB("BA");
-            tcb.setDiemKhoiHanh(cbDiemKH.getValue());
-            tcb.setDiemDen(cbDiemDen.getValue());
-            if(tfSBDi.getText().equals("Tân Sơn Nhất"))
-                tcb.setSanBayDi("TSN");
-            else if(tfSBDi.getText().equals("Nội Bài"))
-                tcb.setSanBayDi("NB");
-            else if(tfSBDi.getText().equals("Đà Nẵng"))
-                tcb.setSanBayDi("DN");
-            else tcb.setSanBayDi("PB");
-            if(tfSBDen.getText().equals("Tân Sơn Nhất"))
-                tcb.setSanBayDen("TSN");
-            else if(tfSBDen.getText().equals("Nội Bài"))
-                tcb.setSanBayDen("NB");
-            else if(tfSBDen.getText().equals("Đà Nẵng"))
-                tcb.setSanBayDen("DN");
-            else tcb.setSanBayDen("PB");
-            tcb.setNgayKhoiHanh(Date.valueOf(dpNgayKhoiHanh.getValue()));
-            tcb.setGioKhoiHanh(Time.valueOf(tpGioKhoiHanh.getValue()));
+            tcb.setMaHMB(cbHangMB.getSelectionModel().getSelectedItem().getMaHMB());
+            tcb.setSanBayDi(cbSBDi.getSelectionModel().getSelectedItem());
+            tcb.setSanBayDen(cbSBDen.getSelectionModel().getSelectedItem());
             tcb.setThoiGianBay(Integer.parseInt(tfThoiGianBay.getText()));
-            tcb.setGiaVe(tfGiaVe.getText());
+            tcb.setGiaVe(Integer.parseInt(tfGiaVe.getText()));
+            LocalDateTime datetime = LocalDateTime.of(dpNgayKhoiHanh.getValue(), tpGioKhoiHanh.getValue());
+            tcb.setThoiGianKhoiHanh(Timestamp.valueOf(datetime));
             tc.suaChuyenBay(tcb);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Successfully");
             alert.setContentText("Xin chúc mừng!");
             alert.show();
-        } catch (Exception e) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText("Error");
-        alert.setContentText("Xin lỗi bạn. Không thể sửa chuyến bay!");
-        alert.show();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error");
+            alert.setContentText("Xin lỗi bạn. Không thể sửa chuyến bay!");
+            alert.show();
         }
+        
         try {
             LoadData();
             btnThem.setDisable(false);
@@ -361,8 +312,8 @@ public class TaoChuyenBayController implements Initializable {
             btnXoa.setDisable(true);
             tfMaCB.setEditable(true);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
+//            tfSBDi.setText("");
+//            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -397,8 +348,8 @@ public class TaoChuyenBayController implements Initializable {
             LoadData();
             tfMaCB.setEditable(true);
             tfMaCB.setText("");
-            tfSBDi.setText("");
-            tfSBDen.setText("");
+//            tfSBDi.setText("");
+//            tfSBDen.setText("");
             tfGiaVe.setText("");
             tfThoiGianBay.setText("");
             btnThem.setDisable(false);
@@ -412,24 +363,15 @@ public class TaoChuyenBayController implements Initializable {
         }
     }
 
-    @FXML
-    private void btnThemMoiClick(ActionEvent event) {
-        btnThem.setDisable(false);
-        btnSua.setDisable(true);
-        btnXoa.setDisable(true);
-        tfMaCB.setEditable(true);
-        tfMaCB.setText("");
-        tfSBDi.setText("");
-        tfSBDen.setText("");
-        tfGiaVe.setText("");
-        tfThoiGianBay.setText("");
-        btnThem.setDisable(false);
-        btnSua.setDisable(true);
-        btnXoa.setDisable(true);
-    }
 
     @FXML
     private void cbHangMBClick(ActionEvent event) {
+//        cbHangMB.setOnKeyReleased(event -> {
+//        if (event.getCode().equals(KeyCode.ENTER)) {
+//            HangMayBay airport = cbHangMB.getSelectionModel().getSelectedItem();
+//            System.out.println(airport.getId());
+//        }
+//    });
         if(String.valueOf(cbHangMB.getValue()).equals("Vietnam Airlines"))
             System.out.println("VA");
             else if (String.valueOf(cbHangMB.getValue()).equals("Jetstar Pacific"))
@@ -439,26 +381,15 @@ public class TaoChuyenBayController implements Initializable {
             else System.out.println("BA");
     }
 
+    
     @FXML
-    private void cbDiemKHchangeText(ActionEvent event) {
-        if(String.valueOf(cbDiemKH.getValue()).equals("Tp Hồ Chí Minh"))
-            tfSBDi.setText("Tân Sơn Nhất");
-        else if (String.valueOf(cbDiemKH.getValue()).equals("Hà Nội"))
-            tfSBDi.setText("Nội Bài");
-        else if (String.valueOf(cbDiemKH.getValue()).equals("Đà Nẵng"))
-            tfSBDi.setText("Đà Nẵng");
-        else tfSBDi.setText("Phú Bài");
+    private void cbSanBayDenEvent(ActionEvent event) {
+        
     }
-
+    
     @FXML
-    private void cbDiemDenchangeText(ActionEvent event) {
-        if(String.valueOf(cbDiemDen.getValue()).equals("Tp Hồ Chí Minh"))
-            tfSBDen.setText("Tân Sơn Nhất");
-        else if (String.valueOf(cbDiemDen.getValue()).equals("Hà Nội"))
-            tfSBDen.setText("Nội Bài");
-        else if (String.valueOf(cbDiemDen.getValue()).equals("Đà Nẵng"))
-            tfSBDen.setText("Đà Nẵng");
-        else tfSBDen.setText("Phú Bài");
+    private void cbSanBayDiEvent(ActionEvent event) {
+        
     }
     
 }

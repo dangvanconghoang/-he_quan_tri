@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * @author win10pro
  */
 public class QuanLyBanVeMayBay extends Application {
-    @Override
+   @Override
    public void start(Stage primaryStage) {
 		try {
 			AnchorPane root = FXMLLoader.load(getClass().getResource("Login.fxml"));

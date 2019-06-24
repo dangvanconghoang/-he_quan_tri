@@ -43,19 +43,19 @@
                         </Label>
                         <JFXPasswordField fx:id="tfPassword" layoutX="172.0" layoutY="234.0" prefHeight="25.0" prefWidth="165.0" text="1" AnchorPane.rightAnchor="30.0" />
                         <JFXButton fx:id="btnDoiMk" layoutX="79.0" layoutY="367.0" onAction="#btnDoiMkClick" prefHeight="44.0" prefWidth="225.0" style="-fx-background-color: #095283;" text="Đổi mật khẩu" textFill="WHITE" />
-                        <Label layoutX="29.0" layoutY="149.0" prefHeight="44.0" prefWidth="80.0" text="Username">
+                        <Label layoutX="29.0" layoutY="149.0" prefHeight="44.0" prefWidth="80.0" text="Tài khoản">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="29.0" layoutY="234.0" text="New Password">
+                        <Label layoutX="29.0" layoutY="234.0" text="Mật khẩu mới">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
                         <JFXTextField fx:id="tfUsername11" layoutX="115.0" layoutY="159.0" prefHeight="25.0" prefWidth="172.0" text="16521409@gm.uit.edu.vn" AnchorPane.rightAnchor="30.0" />
                         <JFXPasswordField fx:id="tfConfirmpass1" layoutX="172.0" layoutY="294.0" prefHeight="25.0" prefWidth="165.0" text="1" AnchorPane.rightAnchor="30.0" />
-                        <Label layoutX="29.0" layoutY="294.0" text="Comfirm Password">
+                        <Label layoutX="29.0" layoutY="294.0" text="Xác nhận mật khẩu">
                            <font>
                               <Font size="16.0" />
                            </font>

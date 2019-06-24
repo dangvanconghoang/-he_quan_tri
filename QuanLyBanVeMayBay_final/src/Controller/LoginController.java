@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.User;
-import Model.UserDAO;
+import DAL.UserDAO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -73,8 +73,9 @@ public class LoginController implements Initializable {
         userDAO = new UserDAO();
         try {
             listUser = userDAO.getListUser();
-            tfTaiKhoan.setText("16521396@gm.uit.edu.vn");
-            tfMatKhau.setText("1");
+            
+            tfTaiKhoan.setText("gon@gmail.com");
+            tfMatKhau.setText("hunterxhunter");
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +84,7 @@ public class LoginController implements Initializable {
     @FXML
     private void btnLoginClick(ActionEvent event) throws IOException {
         User user = new User();
-        int userlevel=0;
+        int userlevel = 0;
         user.setEmail(tfTaiKhoan.getText());
         user.setPass(tfMatKhau.getText());
         int check = CheckUser(user, listUser);
@@ -95,7 +96,7 @@ public class LoginController implements Initializable {
         } else {
             try{
                 user.setuserLevel(userDAO.getUserLevel(tfTaiKhoan.getText()));
-                userlevel=user.getuserLevel();
+                userlevel = user.getuserLevel();
             }catch(Exception e){
                 System.out.println("Error get userlevel");
             }

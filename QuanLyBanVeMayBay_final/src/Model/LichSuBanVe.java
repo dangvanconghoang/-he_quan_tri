@@ -15,18 +15,16 @@ public class LichSuBanVe {
     private String MaVe;
     private String MaCB;
     private String TenHK;
-    private String CMND;
-    private String SDT;
+    private String MaKhachHang;
     private boolean LoaiHK;
     private int Gia;
     private Button btnChiTiet;
 
-    public LichSuBanVe(String MaVe, String MaCB, String TenHK, String CMND, String SDT, boolean LoaiHK, int Gia,Button btnChiTiet) {
+    public LichSuBanVe(String MaVe, String MaCB, String TenHK, String MaKhachHang, boolean LoaiHK, int Gia, Button btnChiTiet) {
         this.MaVe = MaVe;
         this.MaCB = MaCB;
         this.TenHK = TenHK;
-        this.CMND = CMND;
-        this.SDT = SDT;
+        this.MaKhachHang = MaKhachHang;
         this.LoaiHK=LoaiHK;
         this.Gia=Gia;
         this.btnChiTiet=btnChiTiet;
@@ -49,12 +47,10 @@ public class LichSuBanVe {
     public void setTenHK(String TenHK){
         this.TenHK=TenHK;
     }
-    public void setCMND(String CMND){
-        this.CMND=CMND;
+    public void setMaKhachHang(String MaKhachHang){
+        this.MaKhachHang=MaKhachHang;
     }
-    public void setSDT(String SDT){
-        this.SDT=SDT;
-    }
+
     public void setLoaiHK(boolean LoaiHK){
         this.LoaiHK=LoaiHK;
     }
@@ -73,12 +69,10 @@ public class LichSuBanVe {
     public String getTenHK(){
         return TenHK;
     }
-    public String getCMND(){
-        return CMND;
+    public String getMaKhachHang(){
+        return MaKhachHang;
     }
-    public String getSDT(){
-        return SDT;
-    }
+
     public boolean getLoaiHK(){
         return LoaiHK;
     }

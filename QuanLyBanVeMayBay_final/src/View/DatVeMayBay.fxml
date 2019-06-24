@@ -12,55 +12,46 @@
    <children>
       <AnchorPane layoutX="189.0" layoutY="103.0" minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="623.0" style="-fx-background-color: white;">
          <children>
-            <JFXButton layoutX="30.0" layoutY="28.0" text="Điểm khởi hành">
+            <JFXButton layoutX="30.0" layoutY="28.0" text="Điểm khởi hành:">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="411.0" layoutY="28.0" text="Điểm đến">
+            <JFXButton layoutX="411.0" layoutY="28.0" text="Điểm đến:">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="30.0" layoutY="136.0" text="Ngày đi">
+            <JFXButton layoutX="30.0" layoutY="136.0" text="Ngày đi:">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="30.0" layoutY="215.0" text="Số hành khách">
+            <JFXButton layoutX="30.0" layoutY="230.0" text="Số hành khách:">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
-            <HBox layoutX="33.0" layoutY="253.0" prefHeight="28.0" prefWidth="198.0">
-               <children>
-                  <JFXComboBox fx:id="cbBoxNguoiLon" prefHeight="25.0" prefWidth="102.0" promptText="người lớn" />
-               </children>
-            </HBox>
-            <JFXButton layoutX="33.0" layoutY="291.0" text="Loại ghế">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </JFXButton>
+            <HBox layoutX="33.0" layoutY="253.0" prefHeight="28.0" prefWidth="198.0" />
             <JFXDatePicker fx:id="dPNgayDi" layoutX="30.0" layoutY="172.0" />
             <JFXComboBox fx:id="cbBoxKhoiHanh" layoutX="30.0" layoutY="66.0" prefHeight="27.0" prefWidth="171.0" />
             <JFXComboBox fx:id="cbBoxDiemDen" layoutX="411.0" layoutY="66.0" prefHeight="27.0" prefWidth="171.0" />
-            <JFXComboBox fx:id="cbBoxLoaiGhe" layoutX="32.0" layoutY="321.0" prefHeight="27.0" prefWidth="186.0" />
-            <JFXButton layoutX="401.0" layoutY="136.0" text="Ngày về">
+            <JFXButton layoutX="401.0" layoutY="136.0" text="Ngày về:">
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
             <JFXDatePicker fx:id="dPNgayVe" layoutX="411.0" layoutY="172.0" />
-            <JFXButton fx:id="btnTimChuyenBay" layoutX="219.0" layoutY="384.0" onAction="#handleTimChuyenBay" prefHeight="53.0" prefWidth="186.0" style="-fx-background-color: #095283 #095283;" styleClass="newbutton" stylesheets="@application.css" text="Tìm chuyến bay" textFill="WHITE">
+            <JFXButton fx:id="btnTimChuyenBay" layoutX="231.0" layoutY="371.0" onAction="#handleTimChuyenBay" prefHeight="53.0" prefWidth="186.0" ripplerFill="#cd7777" style="-fx-background-color: #095283 #095283;" styleClass="newbutton" stylesheets="@application.css" text="Tìm kiếm" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="cbBoxTreEm" layoutX="201.0" layoutY="254.0" prefHeight="27.0" prefWidth="102.0" promptText="trẻ em " />
+            <JFXComboBox fx:id="cbBoxTreEm" layoutX="201.0" layoutY="276.0" prefHeight="27.0" prefWidth="102.0" promptText="Trẻ em " />
+            <JFXComboBox fx:id="cbBoxNguoiLon" layoutX="53.0" layoutY="277.0" prefHeight="25.0" prefWidth="102.0" promptText="Người lớn" />
          </children>
       </AnchorPane>
-      <Label layoutX="442.0" layoutY="35.0" prefHeight="53.0" prefWidth="118.0" text="Đặt vé" textFill="#095283">
+      <Label layoutX="362.0" layoutY="34.0" prefHeight="53.0" prefWidth="278.0" text="Tìm chuyến bay" textFill="#095283">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
