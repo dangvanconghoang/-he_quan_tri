@@ -1,2 +1,0 @@
-# hqt
-hqt_oracle

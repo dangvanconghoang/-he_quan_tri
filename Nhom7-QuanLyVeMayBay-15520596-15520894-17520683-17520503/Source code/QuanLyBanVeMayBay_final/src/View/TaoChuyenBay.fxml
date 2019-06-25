@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="859.0" prefWidth="1177.0" styleClass="anotherbackground" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TaoChuyenBayController">
+   <children>
+      <JFXButton fx:id="btnThem" layoutX="32.0" layoutY="549.0" onAction="#btnThemClick" prefHeight="34.0" prefWidth="213.0" styleClass="newbutton" stylesheets="@application.css" text="Thêm" />
+      <JFXTextField fx:id="tfMaCB" layoutX="122.0" layoutY="171.0" />
+      <Label layoutX="16.0" layoutY="175.0" text="Mã chuyến bay" />
+      <Label alignment="CENTER" layoutX="289.0" layoutY="33.0" prefHeight="58.0" prefWidth="559.0" text="Tạo chuyến bay" textAlignment="JUSTIFY" textFill="#095283">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="7.0" layoutY="240.0" text="Tên hãng máy bay" />
+      <Label layoutX="15.0" layoutY="293.0" text="Sân bay đi" />
+      <Label layoutX="15.0" layoutY="335.0" text="Sân bay đến" />
+      <JFXTextField fx:id="tfGiaVe" layoutX="121.0" layoutY="483.0" prefHeight="26.0" prefWidth="136.0" />
+      <Label layoutX="14.0" layoutY="378.0" text="Ngày khởi hành" />
+      <Label layoutX="15.0" layoutY="420.0" text="Thời gian bay" />
+      <Label layoutX="15.0" layoutY="458.0" text="Giờ khởi hành" />
+      <Label layoutX="18.0" layoutY="500.0" text="Giá vé" />
+      <JFXTextField fx:id="tfThoiGianBay" layoutX="123.0" layoutY="417.0" prefHeight="26.0" prefWidth="135.0" />
+      <AnchorPane layoutX="306.0" layoutY="121.0" prefHeight="541.0" prefWidth="759.0">
+         <children>
+            <JFXScrollPane layoutX="2.0" layoutY="14.0" prefHeight="551.0" prefWidth="752.0">
+               <children>
+                  <TableView fx:id="tbchuyenbay" onMouseClicked="#tbClick" prefHeight="540.0" prefWidth="806.0">
+                    <columns>
+                        <TableColumn fx:id="colMaCB" prefWidth="62.0" text="Mã CB" />
+                        <TableColumn fx:id="colSBDi" prefWidth="45.0" text="SB Đi" />
+                        <TableColumn fx:id="colSBDen" prefWidth="52.0" text="SB Đến" />
+                      <TableColumn fx:id="colTenHMB" prefWidth="62.0" text="Tên HMB" />
+                        <TableColumn fx:id="colTGBay" prefWidth="63.0" text="TG Bay" />
+                        <TableColumn fx:id="colSoGheThuongTrong" prefWidth="128.0" text="SG Thường Trống" />
+                        <TableColumn fx:id="colSoGheVipTrong" prefWidth="111.0" text="SG Vip Trống" />
+                        <TableColumn fx:id="colGioKH" minWidth="6.0" prefWidth="64.0" text="Giờ KH" />
+                        <TableColumn fx:id="colNgayKH" prefWidth="83.0" text="Ngày KH" />
+                        <TableColumn fx:id="colGiaVe" prefWidth="50.0" text="Giá Vé" />
+                    </columns>
+                  </TableView>
+               </children>
+            </JFXScrollPane>
+         </children>
+      </AnchorPane>
+      <JFXButton fx:id="btnSua" layoutX="148.0" layoutY="598.0" onAction="#btnSuaClick" prefHeight="34.0" prefWidth="98.0" styleClass="newbutton" stylesheets="@application.css" text="Sửa" />
+      <JFXButton fx:id="btnXoa" layoutX="32.0" layoutY="598.0" onAction="#btnXoaClick" prefHeight="34.0" prefWidth="98.0" styleClass="newbutton" stylesheets="@application.css" text="Xóa" />
+      <JFXButton fx:id="btnTimkiem" layoutX="764.0" layoutY="89.0" onAction="#TimKiemCick" prefHeight="34.0" prefWidth="84.0" styleClass="newbutton" stylesheets="@application.css" text="Tìm Kiếm" />
+      <Label layoutX="270.0" layoutY="500.0" text="Đồng" />
+      <JFXDatePicker fx:id="dpNgayKhoiHanh" layoutX="123.0" layoutY="375.0" />
+      <JFXTimePicker fx:id="tpGioKhoiHanh" layoutX="123.0" layoutY="454.0" />
+      <JFXTextField fx:id="tfTimKiem" layoutX="589.0" layoutY="93.0" />
+      <Label layoutX="464.0" layoutY="97.0" text="Tìm Mã Chuyến Bay" />
+      <JFXComboBox fx:id="cbHangMB" layoutX="123.0" layoutY="236.0" onAction="#cbHangMBClick" prefHeight="25.0" prefWidth="136.0" />
+      <JFXComboBox fx:id="cbSBDi" layoutX="122.0" layoutY="289.0" onAction="#cbSanBayDiEvent" prefHeight="25.0" prefWidth="135.0" />
+      <JFXComboBox fx:id="cbSBDen" layoutX="122.0" layoutY="331.0" onAction="#cbSanBayDenEvent" prefHeight="25.0" prefWidth="135.0" />
+   </children>
+</AnchorPane>
