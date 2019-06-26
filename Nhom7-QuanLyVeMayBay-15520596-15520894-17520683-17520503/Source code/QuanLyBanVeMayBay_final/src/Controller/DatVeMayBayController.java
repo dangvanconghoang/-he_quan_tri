@@ -74,7 +74,20 @@ public class DatVeMayBayController implements Initializable {
                 alert.setContentText("phải điền dủ thông tin :) ");
                 alert.showAndWait();
             }
-            
+            LocalDate now = LocalDate.now();
+          if ( dPNgayDi.getValue().isBefore(now) ) {
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle("Lỗi rồi ");
+              alert.setContentText("Ngày di khong hop le  :) ");
+              alert.showAndWait();
+          }
+                if (  cbBoxKhoiHanh.getValue().equals(cbBoxDiemDen.getValue()) ) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Lỗi rồi ");
+                    alert.setContentText("Điểm  đi và điểm đến không được trùng nhau :) ");
+                    alert.showAndWait();
+            }
+          else{
             DatVeMayBay dvmb = new DatVeMayBay();
             dvmb.setDiemKhoiHanh(cbBoxKhoiHanh.getSelectionModel().getSelectedItem());
             dvmb.setDiemDen(cbBoxDiemDen.getSelectionModel().getSelectedItem());
@@ -91,14 +104,8 @@ public class DatVeMayBayController implements Initializable {
             int SoTreE = dvmb.getSLTreEM();
             LocalDate ngayve = this.dPNgayVe.getValue();
             
-            if ( DiemDi ==  DiemDen) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Lỗi rồi ");
-                    alert.setContentText("Điểm  đi và điểm đến không được trùng nhau :) ");
-                    alert.showAndWait();
-            }
-//           
-        
+      
+     
             AnchorPane paneDanhSachChuyenBay = new AnchorPane();
 
       
@@ -114,14 +121,22 @@ public class DatVeMayBayController implements Initializable {
                     alert.setTitle("Lỗi rồi ");
                     alert.setContentText("Ngày về phải lớn hơn này đi  :) ");
                     alert.showAndWait();
-                } else {
+                }
+//                LocalDate now = LocalDate.now();
+//                if ( ngaydi.isBefore(now) ) {
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Lỗi rồi ");
+//                    alert.setContentText("Ngày di khong hop le  :) ");
+//                    alert.showAndWait();
+//                }
+                else {
                     FXMLLoader fXMLLoader = MainController.getMainController().createPage(paneDanhSachChuyenBay, "/View/DanhSachChuyenBay.fxml");
                     fXMLLoader.<DanhSachChuyenBayController>getController().ChuyenDuLieu(DiemDi, DiemDen, ngaydi, SoNL, SoTreE, false, ngayve);
                     GeneralFuntion.FitChildContent(paneDanhSachChuyenBay);
                 }
             }
             
-            
+          }
 
     }
     

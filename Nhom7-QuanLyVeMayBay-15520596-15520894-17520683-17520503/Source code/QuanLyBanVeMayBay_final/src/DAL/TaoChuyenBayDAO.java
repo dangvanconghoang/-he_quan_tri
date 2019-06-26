@@ -122,7 +122,7 @@ public class TaoChuyenBayDAO
         ObservableList<TaoChuyenBay> list = FXCollections.observableArrayList();
         try {
             ResultSet rs = DBConnect.dbExcute(sql);
-            if (rs.first()==false)
+            if (rs.next()==false)
             {
             Alert alert1 = new Alert(Alert.AlertType.ERROR);
             alert1.setTitle("Thông báo");

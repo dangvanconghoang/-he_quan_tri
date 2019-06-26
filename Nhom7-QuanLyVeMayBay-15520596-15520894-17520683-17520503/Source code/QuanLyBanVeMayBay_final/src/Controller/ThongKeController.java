@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAL.DBConnect;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
@@ -32,6 +33,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+//import net.sf.jasperreports.engine.JasperCompileManager;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.engine.JasperReport;
+//import net.sf.jasperreports.swing.JRViewer;
 
 /**
  * FXML Controller class
@@ -68,7 +74,8 @@ public class ThongKeController implements Initializable {
     private JFXComboBox<Integer> cboNam;
     @FXML
     private BarChart<?, ?> bcDoanhThu;
-
+    @FXML
+    private JFXButton btnXemdoanhthu;
     /**
      * Initializes the controller class.
      */
@@ -219,6 +226,12 @@ public class ThongKeController implements Initializable {
         }catch(Exception e){
             System.out.println("Cant load barchartDoanhThu");
         }
+    }
+    
+    @FXML
+    void btnXemdoanhthuClick(ActionEvent event) {
+//        PrintReport viewReport = new PrintReport();
+//        viewReport.showReport();
     }
     
 }

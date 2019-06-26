@@ -68,7 +68,7 @@ public class LichSuBanVeDAO {
         ObservableList<LichSuBanVe> list = FXCollections.observableArrayList();
         try {
             ResultSet rs = DBConnect.dbExcute(sql);
-            if(rs.first() == false) {
+            if(rs.next() == false) {
                 Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                 alert1.setTitle("Thông báo");
                 alert1.setHeaderText("Không tìm thấy!!");

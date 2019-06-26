@@ -57,6 +57,7 @@
             </Label>
             <JFXButton fx:id="btnXem" layoutX="379.0" layoutY="120.0" onAction="#btnXemClick" prefHeight="27.0" prefWidth="57.0" styleClass="newbutton" stylesheets="@application.css" text="Xem" />
             <JFXComboBox fx:id="cboNam" layoutX="202.0" layoutY="120.0" prefHeight="25.0" prefWidth="160.0" promptText="Chọn năm" />
+            <JFXButton fx:id="btnXemdoanhthu" layoutX="447.0" layoutY="119.0" onAction="#btnXemdoanhthuClick" prefHeight="27.0" prefWidth="124.0" styleClass="newbutton" stylesheets="@application.css" text="Xem doanh thu" />
          </children>
       </AnchorPane>
    </children>
